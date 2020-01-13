@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       //title: 'Crossplatform notes',
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: MyHomePage(),
     );
   }
@@ -28,7 +29,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void createNote() {
     setState(() {});
   }
-  Color bgcolor = Color.fromARGB(255, 33, 39, 97);
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
             left: MediaQuery.of(context).size.width * 0.001, right: 0),
         padding: EdgeInsets.zero,
         height: MediaQuery.of(context).size.height * 0.045,
+        color: Color.fromARGB(255, 33, 39, 97),
         child: DecoratedBox(
           decoration: BoxDecoration(
             color: Colors.white,
@@ -51,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: InputDecoration(
                 filled: true,
                 contentPadding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height*0.009,
+                    top: MediaQuery.of(context).size.height * 0.009,
                     left: MediaQuery.of(context).size.width * 0.03,
                     bottom: MediaQuery.of(context).size.height * 0.009),
                 border: InputBorder.none,
@@ -76,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: Icon(Icons.more_vert),
               tooltip: "Settings"),
         ],
-        backgroundColor: bgcolor,
+        backgroundColor: Color.fromARGB(255, 33, 39, 97),
       ),
       body: Center(
         child: Row(
@@ -88,9 +89,18 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
-                  ListCard(Colors.purple, Text("First note")),
-                  ListCard(Colors.green, Text("Another note")),
-                  ListCard(Colors.green, Text("My note")),
+                  ListCard(),
+                  ListCard(
+                      Colors.green,
+                      "Blablabla",
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text("12345"),
+                          Text("6789"),
+                          Text("0")
+                        ],
+                      ))
                 ],
               ),
             ),
@@ -98,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 margin: EdgeInsets.only(right: 0, left: 5, top: 10),
                 child: Column(
                   children: <Widget>[
-                    ListCard(Colors.yellow, Text("Second Note")),
+                    ListCard(Colors.yellow),
                     ListCard(Colors.blue),
                     ListCard(Colors.red),
                     ListCard(Colors.green),
@@ -111,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: createNote,
         tooltip: 'Create note',
         child: Icon(Icons.add),
-        backgroundColor: bgcolor,
+        backgroundColor: Color.fromARGB(255, 33, 39, 97),
       ),
     );
   }

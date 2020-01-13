@@ -1,31 +1,30 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
-
 class NotePage extends StatefulWidget {
-  NotePage(this.title1);
-  final Text title1;
+  NotePage(this.title);
+
+  final String title;
 
   @override
-  _NotePageState createState() => _NotePageState(title1);
+  _NotePageState createState() => _NotePageState(title);
 }
 
 class _NotePageState extends State<NotePage> {
   _NotePageState(this.noteTitle);
-  final Text noteTitle;
+  final String noteTitle;
+
   void createNote() {
     setState(() {});
   }
+
   Color bgcolor = Color.fromARGB(255, 33, 39, 97);
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       appBar: AppBar(
-        title: noteTitle,
+        title: Text(noteTitle),
         actions: <Widget>[
           IconButton(
             onPressed: () {},
@@ -40,12 +39,11 @@ class _NotePageState extends State<NotePage> {
         ],
         backgroundColor: bgcolor,
       ),
-      body: Center(
-        child: Column(
-         children: <Widget>[
-           noteTitle
-         ],
-        )
+      body: Column(
+        children: <Widget>[
+          Text(noteTitle,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: createNote,
