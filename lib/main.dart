@@ -125,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-      showPopup(context, _popupBody(), 'Popup Demo');
+      showPopup(context, _popupBody(), 'Enter note's name');
     },
     tooltip: 'Open Popup',
     child: Icon(Icons.add),
@@ -146,7 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: PopupContent(
           content: Scaffold(
             appBar: AppBar(
-              title: Text("Creating new note"),
+              title: Text(title),
               backgroundColor: colorTheme,
               leading: new Builder(builder: (context) {
                 return IconButton(
