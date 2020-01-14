@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'ListCard.dart';
+import 'popup.dart';
+import 'popup_content.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,11 +23,15 @@ class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
 
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  Color colorTheme = Color.fromARGB(255, 33, 39, 97);
+
   void createNote() {
     setState(() {});
   }
@@ -37,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
             left: MediaQuery.of(context).size.width * 0.001, right: 0),
         padding: EdgeInsets.zero,
         height: MediaQuery.of(context).size.height * 0.045,
-        color: Color.fromARGB(255, 33, 39, 97),
+        color: colorTheme,
         child: DecoratedBox(
           decoration: BoxDecoration(
             color: Colors.white,
@@ -77,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: Icon(Icons.more_vert),
               tooltip: "Settings"),
         ],
-        backgroundColor: Color.fromARGB(255, 33, 39, 97),
+        backgroundColor: colorTheme,
       ),
       body: Center(
         child: Row(
@@ -118,10 +124,76 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: createNote,
-        tooltip: 'Create note',
-        child: Icon(Icons.add),
-        backgroundColor: Color.fromARGB(255, 33, 39, 97),
+        onPressed: () {
+      showPopup(context, _popupBody(), 'Popup Demo');
+    },
+    tooltip: 'Open Popup',
+    child: Icon(Icons.add),
+        backgroundColor: colorTheme,
+    ),
+    );
+  }
+
+  showPopup(BuildContext context, Widget widget, String title,
+      {BuildContext popupContext}) {
+    Navigator.push(
+      context,
+      PopupLayout(
+        top: MediaQuery.of(context).size.height * 0.1,
+        left: 30,
+        right: 30,
+        bottom: MediaQuery.of(context).size.height * 0.65,
+        child: PopupContent(
+          content: Scaffold(
+            appBar: AppBar(
+              title: Text("Creating new note"),
+              backgroundColor: colorTheme,
+              leading: new Builder(builder: (context) {
+                return IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    try {
+                      Navigator.pop(context); //close the popup
+                    } catch (e) {}
+                  },
+                );
+              }),
+              brightness: Brightness.light,
+            ),
+            resizeToAvoidBottomPadding: false,
+            body: widget,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _popupBody() {
+    return Container(
+      child: Column(
+        children: <Widget>[Center(
+          child: Text("Name your note:", style: TextStyle(fontWeight: FontWeight.bold, fontSize: MediaQuery.of(context).size.height * 0.03), ),
+        ),
+          Container(
+            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.015),
+            margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.1, right: MediaQuery.of(context).size.width * 0.1),
+            child: TextField(
+              textInputAction: TextInputAction.search,
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: MediaQuery.of(context).size.height * 0.022),
+              decoration: InputDecoration(
+                filled: true,
+                contentPadding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.009,
+                    left: MediaQuery.of(context).size.width * 0.02,
+                    bottom: MediaQuery.of(context).size.height * 0.009),
+                border: InputBorder.none,
+                hintText: "Enter note's name",
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
