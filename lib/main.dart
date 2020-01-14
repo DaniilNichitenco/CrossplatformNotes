@@ -125,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-      showPopup(context, _popupBody(), 'Enter note's name');
+      showPopup(context, _popupBody(), 'Creating new note');
     },
     tooltip: 'Open Popup',
     child: Icon(Icons.add),
