@@ -6,7 +6,7 @@ import 'popup.dart';
 import 'popup_content.dart';
 
 void main() => runApp(MyApp());
-
+Color colorTheme = Color.fromARGB(255, 33, 39, 97);
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  Color colorTheme = Color.fromARGB(255, 33, 39, 97);
+
 
   void createNote() {
     setState(() {});
@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: DecoratedBox(
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(2.0)),
+            borderRadius: BorderRadius.all(Radius.circular(3.0)),
           ),
           child: Container(
             child: TextField(
@@ -125,9 +125,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-      showPopup(context, _popupBody(), 'Popup Demo');
+      showPopup(context, _newNoteBody(), 'Creating new note');
     },
-    tooltip: 'Open Popup',
+    tooltip: 'New note',
     child: Icon(Icons.add),
         backgroundColor: colorTheme,
     ),
@@ -142,11 +142,11 @@ class _MyHomePageState extends State<MyHomePage> {
         top: MediaQuery.of(context).size.height * 0.1,
         left: 30,
         right: 30,
-        bottom: MediaQuery.of(context).size.height * 0.65,
+        bottom: MediaQuery.of(context).size.height * 0.56,
         child: PopupContent(
           content: Scaffold(
             appBar: AppBar(
-              title: Text("Creating new note"),
+              title: Text(title),
               backgroundColor: colorTheme,
               leading: new Builder(builder: (context) {
                 return IconButton(
@@ -168,15 +168,25 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _popupBody() {
-    return Container(
-      child: Column(
-        children: <Widget>[Center(
-          child: Text("Name your note:", style: TextStyle(fontWeight: FontWeight.bold, fontSize: MediaQuery.of(context).size.height * 0.03), ),
+  Widget _newNoteBody() {
+
+    Color bgcolor = Color.fromARGB(100, 149, 159, 223);
+
+    Widget inputName = Container(
+      color: Color.fromARGB(0, 149, 159, 223),
+        margin: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width * 0.05,
+            right: MediaQuery.of(context).size.width * 0.05,
+            top: MediaQuery.of(context).size.height * 0.02
         ),
-          Container(
-            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.015),
-            margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.1, right: MediaQuery.of(context).size.width * 0.1),
+        padding: EdgeInsets.zero,
+        height: MediaQuery.of(context).size.height * 0.045,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(2.0)),
+          ),
+          child: Container(
             child: TextField(
               textInputAction: TextInputAction.search,
               style: TextStyle(
@@ -186,15 +196,92 @@ class _MyHomePageState extends State<MyHomePage> {
                 filled: true,
                 contentPadding: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.009,
-                    left: MediaQuery.of(context).size.width * 0.02,
+                    left: MediaQuery.of(context).size.width * 0.03,
                     bottom: MediaQuery.of(context).size.height * 0.009),
                 border: InputBorder.none,
                 hintText: "Enter note's name",
               ),
             ),
           ),
+        ));
+    /*Container(
+      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.015),
+      margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.1, right: MediaQuery.of(context).size.width * 0.1),
+      child: TextField(
+        textInputAction: TextInputAction.search,
+        style: TextStyle(
+            color: Colors.black,
+            fontSize: MediaQuery.of(context).size.height * 0.022),
+        decoration: InputDecoration(
+          filled: true,
+          contentPadding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * 0.009,
+              left: MediaQuery.of(context).size.width * 0.02,
+              bottom: MediaQuery.of(context).size.height * 0.00001),
+          border: InputBorder.none,
+          hintText: "Enter note's name",
+        ),
+      ),
+    );*/
+
+    return Container(
+      color: bgcolor,
+      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
+      child: Column(
+        children: <Widget>[Center(
+          child: Text("Name your note:", style: TextStyle(fontWeight: FontWeight.bold, fontSize: MediaQuery.of(context).size.height * 0.03), ),
+        ),
+          inputName,
+          Container(
+            alignment: Alignment.bottomLeft,
+            padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.01, top: MediaQuery.of(context).size.height * 0.01,),
+            margin: EdgeInsets.only(right: 0.0, top: 2),
+            child: IconButton(
+              padding: EdgeInsets.all(0.0),
+              iconSize: MediaQuery.of(context).size.width * 0.13,
+              onPressed: (){
+                try{
+                  Navigator.pop(context); // close the popup
+                } catch (e){}
+              },
+              icon: Icon(Icons.check_circle, color: colorTheme,),
+            ),
+          ),
+          /*Row(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05, top: MediaQuery.of(context).size.height * 0.01,),
+                margin: EdgeInsets.only(right: 0.0),
+                child: IconButton(
+                  padding: EdgeInsets.all(0.0),
+                  iconSize: MediaQuery.of(context).size.width * 0.13,
+                  onPressed: (){
+                    try{
+                      Navigator.pop(context); // close the popup
+                    } catch (e){}
+                  },
+                  icon: Icon(Icons.check_circle, color: colorTheme,),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05, top: MediaQuery.of(context).size.height * 0.01,),
+                margin: EdgeInsets.only(left: 0.0),
+                child: IconButton(
+                  padding: EdgeInsets.all(0.0),
+                  iconSize: MediaQuery.of(context).size.width * 0.13,
+                  onPressed: (){
+                    try{
+                      Navigator.pop(context); // close the popup
+                    } catch (e){}
+                  },
+                  icon: Icon(Icons.cancel, color: colorTheme,),
+                ),
+              ),
+            ],
+          )*/
         ],
       ),
     );
   }
+
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'main.dart';
 
 class NotePage extends StatefulWidget {
   NotePage(this.title);
@@ -37,7 +38,7 @@ class _NotePageState extends State<NotePage> {
               icon: Icon(Icons.more_vert),
               tooltip: "Settings"),
         ],
-        backgroundColor: bgcolor,
+        backgroundColor: colorTheme,
       ),
       body: Column(
         children: <Widget>[
