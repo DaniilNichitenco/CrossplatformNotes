@@ -170,13 +170,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _newNoteBody() {
 
-    Color bgcolor = Color.fromARGB(100, 149, 159, 223);
-
     Widget inputName = Container(
       color: Color.fromARGB(0, 149, 159, 223),
         margin: EdgeInsets.only(
-            left: MediaQuery.of(context).size.width * 0.05,
-            right: MediaQuery.of(context).size.width * 0.05,
+            left: MediaQuery.of(context).size.width * 0.12,
+            right: MediaQuery.of(context).size.width * 0.12,
             top: MediaQuery.of(context).size.height * 0.02
         ),
         padding: EdgeInsets.zero,
@@ -204,28 +202,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
         ));
-    /*Container(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.015),
-      margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.1, right: MediaQuery.of(context).size.width * 0.1),
-      child: TextField(
-        textInputAction: TextInputAction.search,
-        style: TextStyle(
-            color: Colors.black,
-            fontSize: MediaQuery.of(context).size.height * 0.022),
-        decoration: InputDecoration(
-          filled: true,
-          contentPadding: EdgeInsets.only(
-              top: MediaQuery.of(context).size.height * 0.009,
-              left: MediaQuery.of(context).size.width * 0.02,
-              bottom: MediaQuery.of(context).size.height * 0.00001),
-          border: InputBorder.none,
-          hintText: "Enter note's name",
-        ),
-      ),
-    );*/
 
     return Container(
-      color: bgcolor,
+      color: Color.fromARGB(100, 149, 159, 223),
       padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
       child: Column(
         children: <Widget>[Center(
@@ -233,55 +212,32 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
           inputName,
           Container(
-            alignment: Alignment.bottomLeft,
-            padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.01, top: MediaQuery.of(context).size.height * 0.01,),
-            margin: EdgeInsets.only(right: 0.0, top: 2),
-            child: IconButton(
-              padding: EdgeInsets.all(0.0),
-              iconSize: MediaQuery.of(context).size.width * 0.13,
-              onPressed: (){
-                try{
-                  Navigator.pop(context); // close the popup
-                } catch (e){}
-              },
-              icon: Icon(Icons.check_circle, color: colorTheme,),
+            padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.15),
+            child: Row(
+              children: <Widget>[
+                FlatButton(
+                    onPressed: () {
+                      try {
+                        Navigator.pop(context); // close the popup
+                      } catch (e) {}
+                    },
+                    child: Text("Create", style: TextStyle(fontWeight: FontWeight.bold,
+                        fontSize: MediaQuery.of(context).size.height * 0.026, color: Colors.black54),)
+                ),
+                FlatButton(
+                    onPressed: () {
+                      try {
+                        Navigator.pop(context); // close the popup
+                      } catch (e) {}
+                    },
+                    child: Text("Cancel", style: TextStyle(fontWeight: FontWeight.bold,
+                        fontSize: MediaQuery.of(context).size.height * 0.026, color: Colors.black54),)
+                ),
+              ],
             ),
           ),
-          /*Row(
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05, top: MediaQuery.of(context).size.height * 0.01,),
-                margin: EdgeInsets.only(right: 0.0),
-                child: IconButton(
-                  padding: EdgeInsets.all(0.0),
-                  iconSize: MediaQuery.of(context).size.width * 0.13,
-                  onPressed: (){
-                    try{
-                      Navigator.pop(context); // close the popup
-                    } catch (e){}
-                  },
-                  icon: Icon(Icons.check_circle, color: colorTheme,),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05, top: MediaQuery.of(context).size.height * 0.01,),
-                margin: EdgeInsets.only(left: 0.0),
-                child: IconButton(
-                  padding: EdgeInsets.all(0.0),
-                  iconSize: MediaQuery.of(context).size.width * 0.13,
-                  onPressed: (){
-                    try{
-                      Navigator.pop(context); // close the popup
-                    } catch (e){}
-                  },
-                  icon: Icon(Icons.cancel, color: colorTheme,),
-                ),
-              ),
-            ],
-          )*/
         ],
       ),
     );
   }
-
 }
