@@ -19,14 +19,13 @@ class _NotePageState extends State<NotePage> {
     setState(() {});
   }
 
-  Color bgcolor = Color.fromARGB(255, 33, 39, 97);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(noteTitle),
         actions: <Widget>[
+          FavoriteWidget(),
           IconButton(
             onPressed: () {},
             icon: Icon(Icons.add_alert),
@@ -50,8 +49,35 @@ class _NotePageState extends State<NotePage> {
         onPressed: createNote,
         tooltip: 'Create note',
         child: Icon(Icons.add),
-        backgroundColor: bgcolor,
+        backgroundColor: colorTheme,
       ),
     );
+  }
+}
+
+class FavoriteWidget extends StatefulWidget{
+  @override
+  _FavoriteWidgetState createState() => _FavoriteWidgetState();
+}
+
+class _FavoriteWidgetState extends State<FavoriteWidget>{
+  bool _isFavorite = false;
+
+  void _addToFavorite(){
+    setState(() {
+      _isFavorite = !_isFavorite;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    
+    return IconButton(
+        icon: (_isFavorite ? Icon(Icons.star) : Icon(Icons.star_border)),
+        onPressed: () {
+          _addToFavorite();
+        },
+        tooltip: (_isFavorite ? "Remove from favorites" : "Add to favorites"),
+        );
   }
 }
