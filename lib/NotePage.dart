@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
+import 'AppBarIcon.dart';
 
 class NotePage extends StatefulWidget {
   NotePage(this.title);
@@ -25,7 +26,13 @@ class _NotePageState extends State<NotePage> {
       appBar: AppBar(
         title: Text(noteTitle),
         actions: <Widget>[
-          FavoriteWidget(),
+          AppBarIcon(
+            isChecked: true,
+            uncheckedText: "Add to favorites",
+            checkedText: "Remove from favorites",
+            checkedIcon: Icons.star,
+            uncheckedIcon: Icons.star_border,
+          ),
           IconButton(
             onPressed: () {},
             icon: Icon(Icons.add_alert),
@@ -52,32 +59,5 @@ class _NotePageState extends State<NotePage> {
         backgroundColor: colorTheme,
       ),
     );
-  }
-}
-
-class FavoriteWidget extends StatefulWidget{
-  @override
-  _FavoriteWidgetState createState() => _FavoriteWidgetState();
-}
-
-class _FavoriteWidgetState extends State<FavoriteWidget>{
-  bool _isFavorite = false;
-
-  void _addToFavorite(){
-    setState(() {
-      _isFavorite = !_isFavorite;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    
-    return IconButton(
-        icon: (_isFavorite ? Icon(Icons.star) : Icon(Icons.star_border)),
-        onPressed: () {
-          _addToFavorite();
-        },
-        tooltip: (_isFavorite ? "Remove from favorites" : "Add to favorites"),
-        );
   }
 }
