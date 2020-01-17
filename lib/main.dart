@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget searchBar = Container(
+   /* Widget searchBar = Container(
         margin: EdgeInsets.only(
             left: MediaQuery.of(context).size.width * 0.001, right: 0),
         padding: EdgeInsets.zero,
@@ -49,24 +49,49 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(3.0)),
           ),
-          child: Container(
             child: TextField(
               textInputAction: TextInputAction.search,
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: MediaQuery.of(context).size.height * 0.022),
+                  fontSize: 20
+              ),
               decoration: InputDecoration(
                 filled: true,
                 contentPadding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.009,
+                    //top: MediaQuery.of(context).size.height * 0.009,
+                  top: 0,
                     left: MediaQuery.of(context).size.width * 0.03,
-                    bottom: MediaQuery.of(context).size.height * 0.009),
+                   bottom: 0
+                   // bottom: MediaQuery.of(context).size.height * 0.009
+                ),
                 border: InputBorder.none,
                 hintText: "Search",
               ),
             ),
           ),
-        ));
+        ); */
+
+   Widget searchBar = Container(
+     margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+     decoration: BoxDecoration(
+       color: Colors.white,
+       borderRadius: BorderRadius.all(Radius.circular(6.0)),
+     ),
+     child: Row(
+       crossAxisAlignment: CrossAxisAlignment.start,
+       children: <Widget>[
+         Expanded(
+           flex: 1,
+             child: TextFormField(
+               decoration: InputDecoration(
+                 border: InputBorder.none,
+                 hintText: "Search",
+               ),
+             )
+         ),
+       ],
+     ),
+   );
 
     return Scaffold(
       appBar: AppBar(
