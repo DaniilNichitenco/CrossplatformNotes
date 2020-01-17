@@ -48,7 +48,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: "Search",
-                  hintStyle: TextStyle(color: Color.fromARGB(255, 220, 220, 220)),
+                  hintStyle:
+                      TextStyle(color: Color.fromARGB(255, 200, 200, 200)),
                 ),
               ),
             ),
@@ -206,7 +207,7 @@ class _MyHomePageState extends State<MyHomePage> {
           inputName,
           Container(
             padding:
-            EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.15),
+                EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.15),
             child: Row(
               children: <Widget>[
                 FlatButton(
