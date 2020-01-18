@@ -75,44 +75,62 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
         backgroundColor: colorTheme,
       ),
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(right: 5, left: 0, top: 10),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  ListCard(),
-                  ListCard(
-                      Colors.green,
-                      "Blablabla",
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text("12345"),
-                          Text("6789"),
-                          Text("0")
-                        ],
-                      ))
-                ],
-              ),
-            ),
-            Container(
-                margin: EdgeInsets.only(right: 0, left: 5, top: 10),
-                child: Column(
+      body: ListView(
+        padding:  EdgeInsets.all(MediaQuery.of(context).size.width * 0.022),
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              ListCard(Colors.yellow),
+              ListCard(
+                Colors.green,
+                "Blablabla",
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    ListCard(Colors.yellow),
-                    ListCard(Colors.blue),
-                    ListCard(Colors.red),
-                    ListCard(Colors.green),
+                    Text("12345"),
+                    Text("6789"),
+                    Text("0")
                   ],
-                )),
-          ],
-        ),
+                ))],
+          ),
+          Row(
+            children: <Widget>[
+              ListCard(Colors.red),
+              ListCard(Colors.blue)],
+          ),
+          Row(
+            children: <Widget>[
+              ListCard(Colors.deepOrange),
+              ListCard(Colors.yellow)],
+          ),
+          Row(
+            children: <Widget>[
+              ListCard(Colors.yellow),
+              ListCard(Colors.yellow)],
+          ),
+          Row(
+            children: <Widget>[
+              ListCard(Colors.deepOrange),
+              ListCard(Colors.yellow)],
+          ),
+          Row(
+            children: <Widget>[
+              ListCard(Colors.deepOrange),
+              ListCard(Colors.yellow)],
+          ),
+          Row(
+            children: <Widget>[
+              ListCard(Colors.deepOrange),
+              ListCard(Colors.yellow)],
+          ),
+          Row(
+            children: <Widget>[
+              ListCard(Colors.deepOrange),
+              ListCard(Colors.yellow)],
+          ),
+        ],
       ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showPopup(context, _newNoteBody(), 'Creating new note');

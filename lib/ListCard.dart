@@ -16,7 +16,11 @@ class ListCard extends StatelessWidget {
     double width = MediaQuery.of(context).size.width * 0.35;
 
     return Container(
-        padding: EdgeInsets.only(top: 5, bottom: 5, left: 5, right: 5),
+        padding: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height * 0.01,
+            bottom: MediaQuery.of(context).size.height * 0.01,
+            left: MediaQuery.of(context).size.width * 0.015,
+            right: MediaQuery.of(context).size.width * 0.024),
         child: FlatButton(
             onPressed: () {
               Navigator.push(
