@@ -27,7 +27,7 @@ class _NotePageState extends State<NotePage> {
         title: Text(noteTitle),
         actions: <Widget>[
           AppBarIcon(
-            isChecked: true,
+            isChecked: false,
             uncheckedText: "Add to favorites",
             checkedText: "Remove from favorites",
             checkedIcon: Icons.star,
