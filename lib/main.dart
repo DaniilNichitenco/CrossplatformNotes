@@ -35,6 +35,33 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    Widget popupMenu() => PopupMenuButton(
+      itemBuilder: (context) {
+        var list = List<PopupMenuEntry<Object>>();
+        list.add(
+          PopupMenuItem(
+            child: Text("Settings"),
+            value: 1,
+          ),
+        );
+        list.add(
+          PopupMenuItem(
+            child: Text("Profile"),
+            value: 2,
+          ),
+        );
+        list.add(
+          PopupMenuItem(
+            child: Text("Languages"),
+            value: 3,
+          ),
+        );
+        return list;
+      },
+      elevation: 5,
+    );
+
     Widget searchBar = Container(
       padding: EdgeInsets.only(left: 10),
       child: Row(
@@ -68,10 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
             tooltip: "Show alerts",
             iconSize: 22,
           ),
-          IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.more_vert),
-              tooltip: "Settings"),
+          popupMenu(),
         ],
         backgroundColor: colorTheme,
       ),
