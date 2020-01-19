@@ -22,6 +22,33 @@ class _NotePageState extends State<NotePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    Widget popupMenu() => PopupMenuButton(
+      itemBuilder: (context) {
+        var list = List<PopupMenuEntry<Object>>();
+        list.add(
+          PopupMenuItem(
+            child: Text("Settings"),
+            value: 1,
+          ),
+        );
+        list.add(
+          PopupMenuItem(
+            child: Text("Profile"),
+            value: 2,
+          ),
+        );
+        list.add(
+          PopupMenuItem(
+            child: Text("Languages"),
+            value: 3,
+          ),
+        );
+        return list;
+      },
+      elevation: 5,
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text(noteTitle),
@@ -39,10 +66,7 @@ class _NotePageState extends State<NotePage> {
             tooltip: "Show alerts",
             iconSize: 22,
           ),
-          IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.more_vert),
-              tooltip: "Settings"),
+          popupMenu(),
         ],
         backgroundColor: colorTheme,
       ),
