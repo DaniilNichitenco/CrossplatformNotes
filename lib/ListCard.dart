@@ -16,7 +16,17 @@ class ListCard extends StatelessWidget {
     double width = MediaQuery.of(context).size.width * 0.35;
 
     return Container(
-        padding: EdgeInsets.only(
+      decoration: new BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: 5.0,
+            offset: Offset(8, 8),
+          )
+        ]
+      ),
+        margin: EdgeInsets.only(
             top: MediaQuery.of(context).size.height * 0.01,
             bottom: MediaQuery.of(context).size.height * 0.01,
             left: MediaQuery.of(context).size.width * 0.015,
