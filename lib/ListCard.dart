@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:notes_app/SlideRightRoute.dart';
 import 'NotePage.dart';
 
 class ListCard extends StatelessWidget {
@@ -35,8 +36,7 @@ class ListCard extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => NotePage(noteTitle)));
+                  SlideRightRoute(page: NotePage(noteTitle)));
             },
             color: cardColor,
             shape: RoundedRectangleBorder(
