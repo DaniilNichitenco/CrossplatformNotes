@@ -18,7 +18,7 @@ class ListCard extends StatelessWidget {
 
     return Container(
       decoration: new BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(10.0),
         boxShadow: [
           BoxShadow(
             color: Colors.black26,

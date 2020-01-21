@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'ListCard.dart';
 import 'popup.dart';
 import 'popup_content.dart';
+import 'menuDrawer.dart';
 
 void main() => runApp(MyApp());
 Color colorTheme = Color.fromARGB(255, 33, 39, 97);
@@ -86,6 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     return Scaffold(
+      drawer: MenuDrawer(),
       appBar: AppBar(
         title: searchBar,
         actions: <Widget>[
