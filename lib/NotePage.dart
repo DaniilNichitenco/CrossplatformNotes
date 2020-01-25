@@ -30,16 +30,16 @@ class _NotePageState extends State<NotePage> {
     Widget bottom = new BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
+          icon: Icon(Icons.edit),
+          title: Text('Editing'),
+        ),
+        BottomNavigationBarItem(
           icon: Icon(Icons.color_lens),
           title: Text('Theme'),
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.business),
-          title: Text('Business'),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.school),
-          title: Text('School'),
+          icon: Icon(Icons.attach_file),
+          title: Text('Attaches'),
         ),
       ],
       currentIndex: _selectedIndex,
