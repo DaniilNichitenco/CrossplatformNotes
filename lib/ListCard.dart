@@ -33,8 +33,8 @@ class ListCard extends StatelessWidget {
             right: MediaQuery.of(context).size.width * 0.024),
         child: FlatButton(
             onPressed: () {
-              Navigator.push(
-                  context, SlideRightRoute(page: NotePage(noteTitle)));
+              Navigator.push(context,
+                  SlideRightRoute(page: NotePage(noteTitle, cardContent)));
             },
             color: cardColor,
             shape: RoundedRectangleBorder(

@@ -5,17 +5,31 @@ import 'main.dart';
 import 'AppBarIcon.dart';
 
 class NotePage extends StatefulWidget {
-  NotePage(this.title);
+  NotePage(this.title, this.content);
 
   final String title;
+  final Widget content;
 
   @override
-  _NotePageState createState() => _NotePageState(title);
+  _NotePageState createState() => _NotePageState(title, content);
 }
 
 class _NotePageState extends State<NotePage> {
-  _NotePageState(this.noteTitle);
+  _NotePageState([
+    this.noteTitle,
+    this.content = const TextField(
+      textInputAction: TextInputAction.newline,
+      keyboardType: TextInputType.multiline,
+      maxLines: null,
+      decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: "Write here",
+          hintStyle: TextStyle(fontStyle: FontStyle.italic)),
+    ),
+  ]);
   final String noteTitle;
+  final Widget content;
+
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -46,18 +60,6 @@ class _NotePageState extends State<NotePage> {
       onTap: _onItemTapped,
     );
 
-    Widget writtingArea = new Container(
-      child: TextField(
-        textInputAction: TextInputAction.newline,
-        keyboardType: TextInputType.multiline,
-        maxLines: null,
-        decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: "Write here",
-            hintStyle: TextStyle(fontStyle: FontStyle.italic)),
-      ),
-    );
-
     Widget noteArea = new Container(
         child: ListView(
       children: ListTile.divideTiles(context: context, tiles: [
@@ -70,7 +72,10 @@ class _NotePageState extends State<NotePage> {
           ),
         ),
         ListTile(
-          title: writtingArea,
+          title: Align(
+            alignment: Alignment.topLeft,
+            child: content,
+          ),
         ),
       ]).toList(),
     ));
