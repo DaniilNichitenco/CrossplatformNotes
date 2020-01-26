@@ -18,7 +18,7 @@ class _NotePageState extends State<NotePage> {
   final String noteTitle;
   int _selectedIndex = 0;
 
-  void _onItemTapped(int index){
+  void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
@@ -26,7 +26,6 @@ class _NotePageState extends State<NotePage> {
 
   @override
   Widget build(BuildContext context) {
-
     Widget bottom = new BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
@@ -55,54 +54,52 @@ class _NotePageState extends State<NotePage> {
         decoration: InputDecoration(
             border: InputBorder.none,
             hintText: "Write here",
-            hintStyle: TextStyle(fontStyle: FontStyle.italic)
-        ),
+            hintStyle: TextStyle(fontStyle: FontStyle.italic)),
       ),
     );
 
     Widget noteArea = new Container(
-      child: ListView(
-        children: ListTile.divideTiles(
-            context: context,
-            tiles: [
-              ListTile(
-                title: Container(
-                  child: Text(noteTitle, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),),
-                ),
-              ),
-              ListTile(
-                title: writtingArea,
-              ),
-            ]
-        ).toList(),
-      )
-    );
+        child: ListView(
+      children: ListTile.divideTiles(context: context, tiles: [
+        ListTile(
+          title: Container(
+            child: Text(
+              noteTitle,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+            ),
+          ),
+        ),
+        ListTile(
+          title: writtingArea,
+        ),
+      ]).toList(),
+    ));
 
     Widget popupMenu() => PopupMenuButton(
-      itemBuilder: (context) {
-        var list = List<PopupMenuEntry<Object>>();
-        list.add(
-          PopupMenuItem(
-            child: Text("Settings"),
-            value: 1,
-          ),
+          itemBuilder: (context) {
+            var list = List<PopupMenuEntry<Object>>();
+            list.add(
+              PopupMenuItem(
+                child: Text("Settings"),
+                value: 1,
+              ),
+            );
+            list.add(
+              PopupMenuItem(
+                child: Text("Profile"),
+                value: 2,
+              ),
+            );
+            list.add(
+              PopupMenuItem(
+                child: Text("Languages"),
+                value: 3,
+              ),
+            );
+            return list;
+          },
+          elevation: 5,
         );
-        list.add(
-          PopupMenuItem(
-            child: Text("Profile"),
-            value: 2,
-          ),
-        );
-        list.add(
-          PopupMenuItem(
-            child: Text("Languages"),
-            value: 3,
-          ),
-        );
-        return list;
-      },
-      elevation: 5,
-    );
 
     return Scaffold(
       appBar: AppBar(

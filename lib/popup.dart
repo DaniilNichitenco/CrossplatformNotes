@@ -3,16 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class PopupLayout extends ModalRoute {
-
-  PopupLayout({
-    Key key,
-    this.bgColor,
-    @required this.child,
-    this.top,
-    this.bottom,
-    this.left,
-    this.right
-});
+  PopupLayout(
+      {Key key,
+      this.bgColor,
+      @required this.child,
+      this.top,
+      this.bottom,
+      this.left,
+      this.right});
 
   @override
   Duration get transitionDuration => Duration(milliseconds: 300);
@@ -38,17 +36,14 @@ class PopupLayout extends ModalRoute {
   final Widget child;
 
   @override
-  Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
-    if(top == null)
-      this.top = 10;
-    if(bottom == null)
-      this.bottom = 20;
-    if(left == null)
-      this.left = 20;
-    if(right == null)
-      this.right = 20;
+  Widget buildPage(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation) {
+    if (top == null) this.top = 10;
+    if (bottom == null) this.bottom = 20;
+    if (left == null) this.left = 20;
+    if (right == null) this.right = 20;
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         SystemChannels.textInput.invokeMethod('TextInput.hide');
       },
       child: Material(
@@ -61,7 +56,7 @@ class PopupLayout extends ModalRoute {
     );
   }
 
-  Widget _buildOverlayContent(BuildContext context){
+  Widget _buildOverlayContent(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(
         bottom: this.bottom,
@@ -74,8 +69,8 @@ class PopupLayout extends ModalRoute {
   }
 
   @override
-  Widget buildTransitions(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
-
+  Widget buildTransitions(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
     return FadeTransition(
       opacity: animation,
       child: ScaleTransition(

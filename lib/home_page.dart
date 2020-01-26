@@ -20,32 +20,31 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     Widget popupMenu() => PopupMenuButton(
-      itemBuilder: (context) {
-        var list = List<PopupMenuEntry<Object>>();
-        list.add(
-          PopupMenuItem(
-            child: Text("Settings"),
-            value: 1,
-          ),
+          itemBuilder: (context) {
+            var list = List<PopupMenuEntry<Object>>();
+            list.add(
+              PopupMenuItem(
+                child: Text("Settings"),
+                value: 1,
+              ),
+            );
+            list.add(
+              PopupMenuItem(
+                child: Text("Profile"),
+                value: 2,
+              ),
+            );
+            list.add(
+              PopupMenuItem(
+                child: Text("Languages"),
+                value: 3,
+              ),
+            );
+            return list;
+          },
+          elevation: 5,
         );
-        list.add(
-          PopupMenuItem(
-            child: Text("Profile"),
-            value: 2,
-          ),
-        );
-        list.add(
-          PopupMenuItem(
-            child: Text("Languages"),
-            value: 3,
-          ),
-        );
-        return list;
-      },
-      elevation: 5,
-    );
 
     Widget searchBar = Container(
       padding: EdgeInsets.only(left: 10),
@@ -61,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   border: InputBorder.none,
                   hintText: "Search",
                   hintStyle:
-                  TextStyle(color: Color.fromARGB(255, 200, 200, 200)),
+                      TextStyle(color: Color.fromARGB(255, 200, 200, 200)),
                 ),
               ),
             ),
@@ -86,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: colorTheme,
       ),
       body: ListView(
-        padding:  EdgeInsets.all(MediaQuery.of(context).size.width * 0.022),
+        padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.022),
         children: <Widget>[
           Row(
             children: <Widget>[
@@ -96,51 +95,51 @@ class _MyHomePageState extends State<MyHomePage> {
                   "Blablabla",
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text("12345"),
-                      Text("6789"),
-                      Text("0")
-                    ],
-                  ))],
+                    children: <Widget>[Text("12345"), Text("6789"), Text("0")],
+                  ))
+            ],
           ),
           Row(
-            children: <Widget>[
-              ListCard(Colors.red),
-              ListCard(Colors.blue)],
+            children: <Widget>[ListCard(Colors.red), ListCard(Colors.blue)],
           ),
           Row(
             children: <Widget>[
               ListCard(Colors.deepOrange),
-              ListCard(Colors.yellow)],
+              ListCard(Colors.yellow)
+            ],
           ),
           Row(
             children: <Widget>[
               ListCard(Colors.yellow),
-              ListCard(Colors.yellow)],
+              ListCard(Colors.yellow)
+            ],
           ),
           Row(
             children: <Widget>[
               ListCard(Colors.deepOrange),
-              ListCard(Colors.yellow)],
+              ListCard(Colors.yellow)
+            ],
           ),
           Row(
             children: <Widget>[
               ListCard(Colors.deepOrange),
-              ListCard(Colors.yellow)],
+              ListCard(Colors.yellow)
+            ],
           ),
           Row(
             children: <Widget>[
               ListCard(Colors.deepOrange),
-              ListCard(Colors.yellow)],
+              ListCard(Colors.yellow)
+            ],
           ),
           Row(
             children: <Widget>[
               ListCard(Colors.deepOrange),
-              ListCard(Colors.yellow)],
+              ListCard(Colors.yellow)
+            ],
           ),
         ],
       ),
-
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showPopup(context, _newNoteBody(), 'Creating new note');
@@ -235,7 +234,7 @@ class _MyHomePageState extends State<MyHomePage> {
           inputName,
           Container(
             padding:
-            EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.15),
+                EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.15),
             child: Row(
               children: <Widget>[
                 FlatButton(

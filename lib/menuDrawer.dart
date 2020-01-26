@@ -2,18 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
 
-class MenuDrawer extends StatefulWidget{
+class MenuDrawer extends StatefulWidget {
   MenuDrawer({Key key}) : super(key: key);
 
   @override
   _MenuDrawerState createState() => _MenuDrawerState();
 }
 
-  class _MenuDrawerState extends State<MenuDrawer>{
-
+class _MenuDrawerState extends State<MenuDrawer> {
   @override
-    Widget build(BuildContext context) {
-
+  Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -28,23 +26,31 @@ class MenuDrawer extends StatefulWidget{
                     width: 70,
                     height: 70,
                     color: Colors.white,
-                    alignment: Alignment(0.0,0.0),
+                    alignment: Alignment(0.0, 0.0),
                     child: Image.asset('images/person_black.png'),
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(top: 18.0),
-                  child: Wrap(
-                    spacing: 15.0,
-                    children: <Widget>[
-                      Text("FIrst name", style: TextStyle(color: Colors.white),),
-                      Text("Last name", style: TextStyle(color: Colors.white),),
-                    ],
-                  )
-                ),
+                    padding: EdgeInsets.only(top: 18.0),
+                    child: Wrap(
+                      spacing: 15.0,
+                      children: <Widget>[
+                        Text(
+                          "FIrst name",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Text(
+                          "Last name",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    )),
                 Container(
                   padding: EdgeInsets.only(top: 5.0),
-                  child: Text("User123@gmail.com", style: TextStyle(color: Colors.white),),
+                  child: Text(
+                    "User123@gmail.com",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 )
               ],
             ),
@@ -54,18 +60,11 @@ class MenuDrawer extends StatefulWidget{
           ),
           ListTile(
             title: Text("Profile"),
-            onTap: (){
-
-            },
+            onTap: () {},
           ),
-          ListTile(
-            title: Text("Settings"),
-            onTap: (){
-
-            }
-          ),
+          ListTile(title: Text("Settings"), onTap: () {}),
         ],
       ),
     );
   }
-  }
+}

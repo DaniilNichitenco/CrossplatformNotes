@@ -16,9 +16,8 @@ class AppBarIcon extends StatefulWidget {
       this.checkedText,
       this.checkedIcon,
       this.uncheckedIcon}) {
-
-        pageState = new _AppBarIconState(isChecked);
-      }
+    pageState = new _AppBarIconState(isChecked);
+  }
   @override
   _AppBarIconState createState() => pageState;
 }

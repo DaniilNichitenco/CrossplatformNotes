@@ -6,8 +6,8 @@ import 'NotePage.dart';
 class ListCard extends StatelessWidget {
   ListCard(
       [this.cardColor = Colors.lightBlue,
-        this.noteTitle = "Note",
-        this.cardContent = const Text("Note", textAlign: TextAlign.center)]);
+      this.noteTitle = "Note",
+      this.cardContent = const Text("Note", textAlign: TextAlign.center)]);
   final Color cardColor;
   final Widget cardContent;
   final String noteTitle;
@@ -17,16 +17,15 @@ class ListCard extends StatelessWidget {
     double width = MediaQuery.of(context).size.width * 0.35;
 
     return Container(
-      decoration: new BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black26,
-            blurRadius: 5.0,
-            offset: Offset(8, 8),
-          )
-        ]
-      ),
+        decoration: new BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 5.0,
+                offset: Offset(8, 8),
+              )
+            ]),
         margin: EdgeInsets.only(
             top: MediaQuery.of(context).size.height * 0.01,
             bottom: MediaQuery.of(context).size.height * 0.01,
@@ -35,8 +34,7 @@ class ListCard extends StatelessWidget {
         child: FlatButton(
             onPressed: () {
               Navigator.push(
-                  context,
-                  SlideRightRoute(page: NotePage(noteTitle)));
+                  context, SlideRightRoute(page: NotePage(noteTitle)));
             },
             color: cardColor,
             shape: RoundedRectangleBorder(
