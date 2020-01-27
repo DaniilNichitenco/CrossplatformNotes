@@ -3,30 +3,44 @@ import 'package:notes_app/home_page.dart';
 import 'package:notes_app/main.dart';
 import 'package:notes_app/SlideRightRoute.dart';
 
+import 'home_page.dart';
+
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  // final _formKey = GlobalKey<FormState>();
 
   final emailFieldController = TextEditingController();
   final passwordFieldController = TextEditingController();
+
+  final userEmail = 'admin@gmail.com';
+  final userPass = '123Admin321';
+  final _formKey = GlobalKey<FormState>();
 
   TextFormField emailFormField;
   TextFormField passwordFormField;
 
   List<Color> colorThemeList = [
-    Color.fromARGB(255, 65, 35, 182),
-    Color.fromARGB(255, 70, 25, 172),
-    Color.fromARGB(255, 75, 25, 162),
-    Color.fromARGB(255, 80, 25, 152),
+    Color.fromARGB(255, 26, 0, 125),
+    Color.fromARGB(255, 26, 20, 142),
+    Color.fromARGB(255, 26, 35, 162),
+    Color.fromARGB(255, 26, 55, 192),
   ];
 
   _LoginPageState() {
     emailFormField = new TextFormField(
       keyboardType: TextInputType.emailAddress,
+      validator: (value){
+        if(value.isEmpty){
+          return 'Enter E-mail!';
+        }
+        if(value != userEmail){
+          return 'Incorrect Email. Please, try again';
+        }
+        return null;
+      },
       autofocus: false,
       controller: emailFieldController,
       decoration: new InputDecoration(
@@ -35,9 +49,19 @@ class _LoginPageState extends State<LoginPage> {
           labelText: 'E-mail Address',
           labelStyle: TextStyle(color: Colors.black)),
     );
+
     passwordFormField = new TextFormField(
       obscureText: true,
       autofocus: false,
+      validator: (value){
+        if(value.isEmpty){
+          return 'Enter password!';
+        }
+        if(value != userPass){
+          return 'Incorrect password. Please, try again';
+        }
+        return null;
+      },
       controller: passwordFieldController,
       decoration: new InputDecoration(
           icon: Icon(Icons.lock),
@@ -124,51 +148,52 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              emailFormField,
-              Container(
-                padding: EdgeInsets.only(bottom: 10),
-                child: passwordFormField,
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  "Forgot your password?",
-                  style: TextStyle(color: Colors.white70),
-                ),
-              ),
-              new ListTile(
-                title: Container(
-                  height: MediaQuery.of(context).size.width * 0.2,
-                  margin: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width * 0.15),
-                  child: RaisedButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(100.0),
+              Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    emailFormField,
+                    Container(
+                      padding: EdgeInsets.only(bottom: 10),
+                      child: passwordFormField,
                     ),
-                    child: new Text(
-                      "Login",
-                      style: new TextStyle(
-                          color: Colors.white,
-                          fontSize: MediaQuery.of(context).size.width * 0.05),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        "Forgot your password?",
+                        style: TextStyle(color: Colors.white70),
+                      ),
                     ),
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                                title:
-                                    Text("email: " + emailFieldController.text),
-                                content: Text("password: " +
-                                    passwordFieldController.text));
-                          });
-                      //Navigator.push(
-                      //context, SlideRightRoute(page: MyHomePage()));
-                    },
-                    color: colorTheme,
-                  ),
-                  padding: EdgeInsets.only(top: 30),
+                    new ListTile(
+                      title: Container(
+                        height: MediaQuery.of(context).size.width * 0.2,
+                        margin: EdgeInsets.symmetric(
+                            horizontal: MediaQuery.of(context).size.width * 0.15),
+                        child: RaisedButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(100.0),
+                          ),
+                          child: new Text(
+                            "Login",
+                            style: new TextStyle(
+                                color: Colors.white,
+                                fontSize: MediaQuery.of(context).size.width * 0.05),
+                          ),
+                          onPressed: () {
+                            if(_formKey.currentState.validate()){
+                              Navigator.push(context,
+                                  SlideRightRoute(page: MyHomePage()));
+                            }
+                          },
+                          color: colorTheme,
+                        ),
+                        padding: EdgeInsets.only(top: 30),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
+              )
             ],
           ),
         ),
