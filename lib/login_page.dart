@@ -11,26 +11,11 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   // final _formKey = GlobalKey<FormState>();
 
-  final emailFormField = new TextFormField(
-    keyboardType: TextInputType.emailAddress,
-    autofocus: false,
-    decoration: new InputDecoration(
-        icon: Icon(Icons.person),
-        hintText: 'user123@gmail.com',
-        labelText: 'E-mail Address',
-        labelStyle: TextStyle(color: Colors.black)),
-  );
+  final emailFieldController = TextEditingController();
+  final passwordFieldController = TextEditingController();
 
-  final passwordFormField = new TextFormField(
-    // key: _formKey,
-    obscureText: true,
-    autofocus: false,
-    decoration: new InputDecoration(
-        icon: Icon(Icons.lock),
-        hintText: 'Password',
-        labelText: 'Enter your password',
-        labelStyle: TextStyle(color: Colors.black)),
-  );
+  TextFormField emailFormField;
+  TextFormField passwordFormField;
 
   List<Color> colorThemeList = [
     Color.fromARGB(255, 65, 35, 182),
@@ -38,6 +23,29 @@ class _LoginPageState extends State<LoginPage> {
     Color.fromARGB(255, 75, 25, 162),
     Color.fromARGB(255, 80, 25, 152),
   ];
+
+  _LoginPageState() {
+    emailFormField = new TextFormField(
+      keyboardType: TextInputType.emailAddress,
+      autofocus: false,
+      controller: emailFieldController,
+      decoration: new InputDecoration(
+          icon: Icon(Icons.person),
+          hintText: 'user123@gmail.com',
+          labelText: 'E-mail Address',
+          labelStyle: TextStyle(color: Colors.black)),
+    );
+    passwordFormField = new TextFormField(
+      obscureText: true,
+      autofocus: false,
+      controller: passwordFieldController,
+      decoration: new InputDecoration(
+          icon: Icon(Icons.lock),
+          hintText: 'Password',
+          labelText: 'Enter your password',
+          labelStyle: TextStyle(color: Colors.black)),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,8 +152,17 @@ class _LoginPageState extends State<LoginPage> {
                           fontSize: MediaQuery.of(context).size.width * 0.05),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                          context, SlideRightRoute(page: MyHomePage()));
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                                title:
+                                    Text("email: " + emailFieldController.text),
+                                content: Text("password: " +
+                                    passwordFieldController.text));
+                          });
+                      //Navigator.push(
+                      //context, SlideRightRoute(page: MyHomePage()));
                     },
                     color: colorTheme,
                   ),
@@ -159,31 +176,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
-/*ListView(
-                    children: <Widget>[
-                      new TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: new InputDecoration(
-                          hintText: 'user123@gmail.com',
-                          labelText: 'E-mail Address',
-                        ),
-                      ),
-                      new TextFormField(
-                        obscureText: true,
-                        decoration: new InputDecoration(
-                          hintText: 'Password',
-                          labelText: 'Enter your password'
-                        ),
-                      ),
-                      new Container(
-                        width: MediaQuery.of(context).size.width *0.3,
-                        child: RaisedButton(
-                          child: new Text("Login", style: new TextStyle(color: Colors.white),),
-                          onPressed: () => null,
-                          color: colorTheme,
-                        ),
-                        padding: EdgeInsets.only(top: 30),
-                      ),
-                    ],
-                  )*/
