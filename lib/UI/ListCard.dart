@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:notes_app/SlideRightRoute.dart';
-import 'NotePage.dart';
+import 'package:notes_app/Animations/SlideRightRoute.dart';
+import 'package:notes_app/Pages/NotePage.dart';
 
 class ListCard extends StatelessWidget {
   ListCard(

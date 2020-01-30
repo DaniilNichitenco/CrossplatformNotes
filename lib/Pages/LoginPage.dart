@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/home_page.dart';
+import 'package:notes_app/Pages/HomePage.dart';
+import 'package:notes_app/Styles/Styles.dart';
 import 'package:notes_app/main.dart';
-import 'package:notes_app/SlideRightRoute.dart';
-
-import 'home_page.dart';
+import 'package:notes_app/Animations/SlideRightRoute.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -11,32 +10,24 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final emailFieldController = TextEditingController();
   final passwordFieldController = TextEditingController();
 
-  final userEmail = 'admin@gmail.com';
-  final userPass = '123Admin321';
+  final userEmail = '1';
+  final userPass = '1';
   final _formKey = GlobalKey<FormState>();
 
   TextFormField emailFormField;
   TextFormField passwordFormField;
 
-  List<Color> colorThemeList = [
-    Color.fromARGB(255, 26, 0, 125),
-    Color.fromARGB(255, 26, 20, 142),
-    Color.fromARGB(255, 26, 35, 162),
-    Color.fromARGB(255, 26, 55, 192),
-  ];
-
   _LoginPageState() {
     emailFormField = new TextFormField(
       keyboardType: TextInputType.emailAddress,
-      validator: (value){
-        if(value.isEmpty){
+      validator: (value) {
+        if (value.isEmpty) {
           return 'Enter E-mail!';
         }
-        if(value != userEmail){
+        if (value != userEmail) {
           return 'Incorrect Email. Please, try again';
         }
         return null;
@@ -53,11 +44,11 @@ class _LoginPageState extends State<LoginPage> {
     passwordFormField = new TextFormField(
       obscureText: true,
       autofocus: false,
-      validator: (value){
-        if(value.isEmpty){
+      validator: (value) {
+        if (value.isEmpty) {
           return 'Enter password!';
         }
-        if(value != userPass){
+        if (value != userPass) {
           return 'Incorrect password. Please, try again';
         }
         return null;
@@ -84,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
             end: Alignment.bottomCenter,
             // Add one stop for each color. Stops should increase from 0 to 1
             stops: [0.25, 0.4, 0.6, 8],
-            colors: colorThemeList,
+            colors: Styles.colorThemeList,
           ),
         ),
         child: Container(
@@ -169,7 +160,8 @@ class _LoginPageState extends State<LoginPage> {
                       title: Container(
                         height: MediaQuery.of(context).size.width * 0.2,
                         margin: EdgeInsets.symmetric(
-                            horizontal: MediaQuery.of(context).size.width * 0.15),
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.15),
                         child: RaisedButton(
                           shape: RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(100.0),
@@ -178,12 +170,13 @@ class _LoginPageState extends State<LoginPage> {
                             "Login",
                             style: new TextStyle(
                                 color: Colors.white,
-                                fontSize: MediaQuery.of(context).size.width * 0.05),
+                                fontSize:
+                                    MediaQuery.of(context).size.width * 0.05),
                           ),
                           onPressed: () {
-                            if(_formKey.currentState.validate()){
-                              Navigator.push(context,
-                                  SlideRightRoute(page: MyHomePage()));
+                            if (_formKey.currentState.validate()) {
+                              Navigator.push(
+                                  context, SlideRightRoute(page: MyHomePage()));
                             }
                           },
                           color: colorTheme,

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'main.dart';
+import 'package:notes_app/Styles/Styles.dart';
 
 class MenuDrawer extends StatefulWidget {
   MenuDrawer({Key key}) : super(key: key);
@@ -55,7 +55,7 @@ class _MenuDrawerState extends State<MenuDrawer> {
               ],
             ),
             decoration: BoxDecoration(
-              color: colorTheme,
+              color: Styles.colorTheme,
             ),
           ),
           ListTile(

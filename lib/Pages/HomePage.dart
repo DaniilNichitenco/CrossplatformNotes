@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'ListCard.dart';
-import 'popup.dart';
-import 'popup_content.dart';
-import 'menuDrawer.dart';
-import 'main.dart';
+import 'package:notes_app/UI_Elements/ListCard.dart';
+import 'package:notes_app/UI_Elements/popup.dart';
+import 'package:notes_app/UI_Elements/popup_content.dart';
+import 'package:notes_app/UI_Elements/menuDrawer.dart';
+import 'package:notes_app/Styles/Styles.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -82,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           popupMenu(),
         ],
-        backgroundColor: colorTheme,
+        backgroundColor: Styles.colorTheme,
       ),
       body: ListView(
         padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.022),
@@ -119,25 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ListCard(Colors.deepOrange),
               ListCard(Colors.yellow)
             ],
-          ),
-          Row(
-            children: <Widget>[
-              ListCard(Colors.deepOrange),
-              ListCard(Colors.yellow)
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              ListCard(Colors.deepOrange),
-              ListCard(Colors.yellow)
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              ListCard(Colors.deepOrange),
-              ListCard(Colors.yellow)
-            ],
-          ),
+          )
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -146,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         tooltip: 'New note',
         child: Icon(Icons.add),
-        backgroundColor: colorTheme,
+        backgroundColor: Styles.colorTheme,
       ),
     );
   }
@@ -164,7 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
           content: Scaffold(
             appBar: AppBar(
               title: Text(title),
-              backgroundColor: colorTheme,
+              backgroundColor: Styles.colorTheme,
               leading: new Builder(builder: (context) {
                 return IconButton(
                   icon: Icon(Icons.arrow_back),

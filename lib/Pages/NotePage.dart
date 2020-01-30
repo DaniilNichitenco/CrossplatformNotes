@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'main.dart';
-import 'AppBarIcon.dart';
+import 'package:notes_app/Styles/Styles.dart';
+import 'package:notes_app/UI_Elements/AppBarIcon.dart';
 
 class NotePage extends StatefulWidget {
   NotePage(this.title, this.content);
@@ -125,14 +125,14 @@ class _NotePageState extends State<NotePage> {
           ),
           popupMenu(),
         ],
-        backgroundColor: colorTheme,
+        backgroundColor: Styles.colorTheme,
       ),
       body: noteArea,
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         tooltip: 'Create note',
         child: Icon(Icons.add),
-        backgroundColor: colorTheme,
+        backgroundColor: Styles.colorTheme,
       ),
       bottomNavigationBar: bottom,
     );
