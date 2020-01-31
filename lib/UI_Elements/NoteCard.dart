@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:notes_app/Animations/SlideRightRoute.dart';
 import 'package:notes_app/Pages/NotePage.dart';
 
-class ListCard extends StatelessWidget {
-  ListCard(
+class NoteCard extends StatelessWidget {
+  NoteCard(
       [this.cardColor = Colors.lightBlue,
-      this.noteTitle = "Note",
-      this.cardContent = const Text("Note", textAlign: TextAlign.center)]);
+        this.noteTitle = "Note",
+        this.cardContent = const Text("Note", textAlign: TextAlign.center)]);
   final Color cardColor;
   final Widget cardContent;
   final String noteTitle;

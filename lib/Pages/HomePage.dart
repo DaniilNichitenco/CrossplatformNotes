@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/UI_Elements/ListCard.dart';
+import 'package:notes_app/UI_Elements/NoteCard.dart';
 import 'package:notes_app/UI_Elements/popup.dart';
 import 'package:notes_app/UI_Elements/popup_content.dart';
 import 'package:notes_app/UI_Elements/menuDrawer.dart';
@@ -87,39 +87,28 @@ class _MyHomePageState extends State<MyHomePage> {
       body: ListView(
         padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.022),
         children: <Widget>[
-          Row(
+          Wrap(
             children: <Widget>[
-              ListCard(Colors.yellow),
-              ListCard(
-                  Colors.green,
-                  "Blablabla",
+              NoteCard(Colors.yellow),
+              NoteCard(
+                Colors.green,
+                "Blablablav12",
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[Text("12345"), Text("6789"), Text("0")],
-                  ))
+                  )
+              ),
+              NoteCard(Colors.red),
+              NoteCard(Colors.blue),
+              NoteCard(Colors.deepOrange),
+              NoteCard(Colors.yellow),
+              NoteCard(Colors.yellow),
+              NoteCard(Colors.yellow),
+              NoteCard(Colors.deepOrange),
+              NoteCard(Colors.yellow),
+              NoteCard(Colors.yellow),
             ],
           ),
-          Row(
-            children: <Widget>[ListCard(Colors.red), ListCard(Colors.blue)],
-          ),
-          Row(
-            children: <Widget>[
-              ListCard(Colors.deepOrange),
-              ListCard(Colors.yellow)
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              ListCard(Colors.yellow),
-              ListCard(Colors.yellow)
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              ListCard(Colors.deepOrange),
-              ListCard(Colors.yellow)
-            ],
-          )
         ],
       ),
       floatingActionButton: FloatingActionButton(
