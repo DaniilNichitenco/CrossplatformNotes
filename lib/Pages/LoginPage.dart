@@ -3,6 +3,7 @@ import 'package:notes_app/Pages/HomePage.dart';
 import 'package:notes_app/Styles/Styles.dart';
 import 'package:notes_app/main.dart';
 import 'package:notes_app/Animations/SlideRightRoute.dart';
+import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -80,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
         child: Container(
           padding: EdgeInsets.only(
-            top: MediaQuery.of(context).size.height * 0.1,
+            top: MediaQuery.of(context).size.height * 0.06,
             left: MediaQuery.of(context).size.width * 0.1,
             right: MediaQuery.of(context).size.width * 0.1,
           ),
@@ -182,8 +183,27 @@ class _LoginPageState extends State<LoginPage> {
                           color: colorTheme,
                         ),
                         padding: EdgeInsets.only(top: 30),
+
                       ),
                     ),
+                    Container(
+                      padding: EdgeInsets.only(top: 15.0),
+                        child: Center(
+                        child: GoogleSignInButton(
+                        text: "  Sign in with Google   ", //отступы нужны для выравнивания
+                        borderRadius: 10.0,
+                        darkMode: true,
+                        onPressed: (){},
+                      ),
+                    )
+                    ),
+                    Center(
+                      child: FacebookSignInButton(
+                        text: "Sign in with Facebook",
+                        onPressed: (){},
+                        borderRadius: 10.0,
+                      ),
+                    )
                   ],
                 ),
               )
