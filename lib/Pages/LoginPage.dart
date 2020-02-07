@@ -35,11 +35,21 @@ class _LoginPageState extends State<LoginPage> {
       },
       autofocus: false,
       controller: emailFieldController,
+      style: TextStyle(color: Colors.white),
       decoration: new InputDecoration(
-          icon: Icon(Icons.person),
+          icon: Icon(Icons.person, color: Colors.white,),
           hintText: 'user123@gmail.com',
+          hintStyle: TextStyle(color: Colors.grey),
           labelText: 'E-mail Address',
-          labelStyle: TextStyle(color: Colors.black)),
+          labelStyle: TextStyle(color: Colors.white),
+          enabledBorder: new UnderlineInputBorder(
+              borderSide: new BorderSide(
+                  color: Colors.black
+              )
+          ),
+          focusedBorder: UnderlineInputBorder(
+              borderSide: new BorderSide(color: Colors.white)
+          )),
     );
 
     passwordFormField = new TextFormField(
@@ -55,11 +65,21 @@ class _LoginPageState extends State<LoginPage> {
         return null;
       },
       controller: passwordFieldController,
+      style: TextStyle(color: Colors.white),
       decoration: new InputDecoration(
-          icon: Icon(Icons.lock),
+          icon: Icon(Icons.lock, color: Colors.white,),
           hintText: 'Password',
+          hintStyle: TextStyle(color: Colors.grey),
           labelText: 'Enter your password',
-          labelStyle: TextStyle(color: Colors.black)),
+          labelStyle: TextStyle(color: Colors.white),
+          enabledBorder: new UnderlineInputBorder(
+            borderSide: new BorderSide(
+              color: Colors.black
+            )
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: new BorderSide(color: Colors.white)
+          )),
     );
   }
 
@@ -75,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             // Add one stop for each color. Stops should increase from 0 to 1
-            stops: [0.25, 0.4, 0.6, 8],
+            stops: [0.18, 0.45, 0.7, 9],
             colors: Styles.colorThemeList,
           ),
         ),
@@ -94,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                     shadows: [
                       Shadow(
                         blurRadius: 7.0,
-                        color: Colors.green[900],
+                        color: Colors.blueGrey,
                         offset: Offset(2.0, 2.0),
                       )
                     ],
@@ -113,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                     shadows: [
                       Shadow(
                         blurRadius: 7.0,
-                        color: Colors.green[900],
+                        color: Colors.blueGrey,
                         offset: Offset(2.0, 2.0),
                       )
                     ],
@@ -132,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                       shadows: [
                         Shadow(
                           blurRadius: 7.0,
-                          color: Colors.green[900],
+                          color: Colors.blueGrey,
                           offset: Offset(2.0, 2.0),
                         )
                       ],
@@ -159,10 +179,9 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     new ListTile(
                       title: Container(
-                        height: MediaQuery.of(context).size.width * 0.2,
+                        height: 72,
                         margin: EdgeInsets.symmetric(
-                            horizontal:
-                                MediaQuery.of(context).size.width * 0.15),
+                            horizontal: 50),
                         child: RaisedButton(
                           shape: RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(100.0),
@@ -171,8 +190,7 @@ class _LoginPageState extends State<LoginPage> {
                             "Login",
                             style: new TextStyle(
                                 color: Colors.white,
-                                fontSize:
-                                    MediaQuery.of(context).size.width * 0.05),
+                                fontSize: 18),
                           ),
                           onPressed: () {
                             if (_formKey.currentState.validate()) {
