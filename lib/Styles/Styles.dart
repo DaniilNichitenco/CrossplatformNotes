@@ -4,9 +4,9 @@ class Styles {
   static final Color colorTheme = Color.fromARGB(255, 33, 39, 97);
   
   static final List<Color> colorThemeList = [
-    Color.fromARGB(255, 26, 0, 125),
-    Color.fromARGB(255, 26, 20, 142),
-    Color.fromARGB(255, 26, 35, 162),
-    Color.fromARGB(255, 26, 55, 192),
+    Color.fromARGB(255, 0, 0, 61),
+    Color.fromARGB(255, 0, 0, 83),
+    Color.fromARGB(255, 0, 0, 123),
+    Color.fromARGB(255, 0, 0, 145),
   ];
 }
