@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class logListScrolling extends ScrollBehavior{
+class LogListScrolling extends ScrollBehavior{
 
   @override
   Widget buildViewportChrome(

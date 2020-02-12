@@ -107,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
             right: MediaQuery.of(context).size.width * 0.1,
 
           ),
-          child: ScrollConfiguration(behavior: logListScrolling(), child:
+          child: ScrollConfiguration(behavior: LogListScrolling(), child:
           ListView(
             children: <Widget>[
               Center(
