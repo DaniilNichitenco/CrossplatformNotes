@@ -85,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Styles.colorTheme,
       ),
       body: ListView(
+        physics: BouncingScrollPhysics(),
         padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.022),
         children: <Widget>[
           ListCard()
