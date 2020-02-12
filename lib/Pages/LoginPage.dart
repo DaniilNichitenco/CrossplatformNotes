@@ -4,6 +4,7 @@ import 'package:notes_app/Styles/Styles.dart';
 import 'package:notes_app/main.dart';
 import 'package:notes_app/Animations/SlideRightRoute.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
+import 'package:notes_app/Animations/Scrolling.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -37,14 +38,14 @@ class _LoginPageState extends State<LoginPage> {
       controller: emailFieldController,
       style: TextStyle(color: Colors.white),
       decoration: new InputDecoration(
-          icon: Icon(Icons.person, color: Colors.white,),
+          icon: Icon(Icons.person, color:  Colors.white),
           hintText: 'user123@gmail.com',
           hintStyle: TextStyle(color: Colors.grey),
           labelText: 'E-mail Address',
           labelStyle: TextStyle(color: Colors.white),
           enabledBorder: new UnderlineInputBorder(
               borderSide: new BorderSide(
-                  color: Colors.black
+                  color: Colors.grey
               )
           ),
           focusedBorder: UnderlineInputBorder(
@@ -74,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
           labelStyle: TextStyle(color: Colors.white),
           enabledBorder: new UnderlineInputBorder(
             borderSide: new BorderSide(
-              color: Colors.black
+              color: Colors.grey
             )
           ),
           focusedBorder: UnderlineInputBorder(
@@ -104,8 +105,10 @@ class _LoginPageState extends State<LoginPage> {
             top: MediaQuery.of(context).size.height * 0.06,
             left: MediaQuery.of(context).size.width * 0.1,
             right: MediaQuery.of(context).size.width * 0.1,
+
           ),
-          child: ListView(
+          child: ScrollConfiguration(behavior: logListScrolling(), child:
+          ListView(
             children: <Widget>[
               Center(
                 child: Text(
@@ -113,9 +116,9 @@ class _LoginPageState extends State<LoginPage> {
                   style: TextStyle(
                     shadows: [
                       Shadow(
-                        blurRadius: 7.0,
+                        blurRadius: 2.0,
                         color: Colors.blueGrey,
-                        offset: Offset(2.0, 2.0),
+                        offset: Offset(1.30, 1.30),
                       )
                     ],
                     color: Colors.white,
@@ -130,19 +133,13 @@ class _LoginPageState extends State<LoginPage> {
                   "GROWTH * HAPPENS * TODAY",
                   style: TextStyle(
                     color: Colors.white,
-                    shadows: [
-                      Shadow(
-                        blurRadius: 7.0,
-                        color: Colors.blueGrey,
-                        offset: Offset(2.0, 2.0),
-                      )
-                    ],
+
                   ),
                 ),
               ),
               Center(
                 child: Container(
-                  padding: EdgeInsets.only(top: 40, bottom: 20),
+                  padding: EdgeInsets.only(top: 40, bottom: 30),
                   child: Text(
                     "SIGN IN",
                     style: TextStyle(
@@ -151,9 +148,9 @@ class _LoginPageState extends State<LoginPage> {
                       fontSize: 40,
                       shadows: [
                         Shadow(
-                          blurRadius: 7.0,
+                          blurRadius: 2.0,
                           color: Colors.blueGrey,
-                          offset: Offset(2.0, 2.0),
+                          offset: Offset(1.20, 1.20),
                         )
                       ],
                     ),
@@ -205,15 +202,15 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(top: 15.0),
+                        padding: EdgeInsets.only(top: 20.0),
                         child: Center(
-                        child: GoogleSignInButton(
-                        text: "  Sign in with Google   ", //отступы нужны для выравнивания
-                        borderRadius: 10.0,
-                        darkMode: true,
-                        onPressed: (){},
-                      ),
-                    )
+                          child: GoogleSignInButton(
+                            text: "  Sign in with Google   ", //отступы нужны для выравнивания
+                            borderRadius: 10.0,
+                            darkMode: true,
+                            onPressed: (){},
+                          ),
+                        )
                     ),
                     Center(
                       child: FacebookSignInButton(
@@ -226,9 +223,10 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               )
             ],
-          ),
+          ),)
         ),
       ),
     );
   }
 }
+
