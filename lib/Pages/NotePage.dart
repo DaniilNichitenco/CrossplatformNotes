@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:notes_app/Styles/Styles.dart';
 import 'package:notes_app/UI_Elements/AppBarIcon.dart';
+import 'package:notes_app/Animations/Scrolling.dart';
 
 class NotePage extends StatefulWidget {
   NotePage(this.title, this.content);
@@ -30,55 +31,29 @@ class _NotePageState extends State<NotePage> {
   final String noteTitle;
   final Widget content;
 
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    Widget bottom = new BottomNavigationBar(
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.edit),
-          title: Text('Editing'),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.color_lens),
-          title: Text('Theme'),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.attach_file),
-          title: Text('Attaches'),
-        ),
-      ],
-      currentIndex: _selectedIndex,
-      selectedItemColor: Colors.amber[800],
-      onTap: _onItemTapped,
-    );
 
     Widget noteArea = new Container(
-        child: ListView(
-      children: ListTile.divideTiles(context: context, tiles: [
-        ListTile(
-          title: Container(
-            child: Text(
-              noteTitle,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+        child: ScrollConfiguration(behavior: ListScrollingWithoutIndicating(), child: ListView(
+          children: ListTile.divideTiles(context: context, tiles: [
+            ListTile(
+              title: Container(
+                child: Text(
+                  noteTitle,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                ),
+              ),
             ),
-          ),
-        ),
-        ListTile(
-          title: Align(
-            alignment: Alignment.topLeft,
-            child: content,
-          ),
-        ),
-      ]).toList(),
-    ));
+            ListTile(
+              title: Align(
+                alignment: Alignment.topLeft,
+                child: content,
+              ),
+            ),
+          ]).toList(),
+        )));
 
     Widget popupMenu() => PopupMenuButton(
           itemBuilder: (context) {
@@ -134,7 +109,6 @@ class _NotePageState extends State<NotePage> {
         child: Icon(Icons.add),
         backgroundColor: Styles.colorTheme,
       ),
-      bottomNavigationBar: bottom,
     );
   }
 }
