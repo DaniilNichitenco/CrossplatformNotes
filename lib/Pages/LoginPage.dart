@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/Pages/HomePage.dart';
 import 'package:notes_app/Styles/Styles.dart';
-import 'package:notes_app/main.dart';
 import 'package:notes_app/Animations/SlideRightRoute.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:notes_app/Animations/Scrolling.dart';
@@ -15,12 +14,22 @@ class _LoginPageState extends State<LoginPage> {
   final emailFieldController = TextEditingController();
   final passwordFieldController = TextEditingController();
 
+  FocusNode myFocusNode;
+  final FocusNode firstFocusNode = FocusNode();
+
   @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    passwordFieldController.dispose();
+  void initState(){
+    super.initState();
+    myFocusNode = FocusNode();
+
+  }
+
+  @override
+  void dispose(){
+    myFocusNode.dispose();
     super.dispose();
   }
+
 
   final userEmail = '1';
   final userPass = '1';
@@ -42,6 +51,11 @@ class _LoginPageState extends State<LoginPage> {
         return null;
       },
       autofocus: false,
+      textInputAction: TextInputAction.next,
+      focusNode: firstFocusNode,
+      onFieldSubmitted: (String value) {
+        _changeFocus(context, firstFocusNode, myFocusNode);
+        },
       controller: emailFieldController,
       style: TextStyle(color: Colors.white),
       decoration: new InputDecoration(
@@ -61,6 +75,7 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     passwordFormField = new TextFormField(
+      focusNode: myFocusNode,
       obscureText: true,
       autofocus: false,
       validator: (value) {
@@ -73,6 +88,13 @@ class _LoginPageState extends State<LoginPage> {
         return null;
       },
       controller: passwordFieldController,
+      textInputAction: TextInputAction.go,
+      onFieldSubmitted: (v){
+        if (_formKey.currentState.validate()) {
+          Navigator.push(
+              context, SlideRightRoute(page: MyHomePage()));
+        }
+      },
       style: TextStyle(color: Colors.white),
       decoration: new InputDecoration(
           icon: Icon(Icons.lock, color: Colors.white,),
@@ -89,6 +111,13 @@ class _LoginPageState extends State<LoginPage> {
             borderSide: new BorderSide(color: Colors.white)
           )),
     );
+  }
+
+  //!!!This work not well, gotta check it!!!
+  _changeFocus(BuildContext context, FocusNode focusNodeCurrent,
+      FocusNode focusNodeNext) {
+    focusNodeCurrent.unfocus();
+    setState(() => focusNodeCurrent = focusNodeNext);
   }
 
   @override
@@ -202,7 +231,7 @@ class _LoginPageState extends State<LoginPage> {
                                   context, SlideRightRoute(page: MyHomePage()));
                             }
                           },
-                          color: colorTheme,
+                          color: Styles.colorTheme,
                         ),
                         padding: EdgeInsets.only(top: 30),
 
