@@ -15,6 +15,13 @@ class _LoginPageState extends State<LoginPage> {
   final emailFieldController = TextEditingController();
   final passwordFieldController = TextEditingController();
 
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    passwordFieldController.dispose();
+    super.dispose();
+  }
+
   final userEmail = '1';
   final userPass = '1';
   final _formKey = GlobalKey<FormState>();
@@ -107,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
             right: MediaQuery.of(context).size.width * 0.1,
 
           ),
-          child: ScrollConfiguration(behavior: LogListScrolling(), child:
+          child: ScrollConfiguration(behavior: ListScrollingWithoutIndicating(), child:
           ListView(
             children: <Widget>[
               Center(
