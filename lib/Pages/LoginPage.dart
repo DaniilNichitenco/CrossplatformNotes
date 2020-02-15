@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/Pages/HomePage.dart';
 import 'package:notes_app/Styles/Styles.dart';
-import 'package:notes_app/main.dart';
 import 'package:notes_app/Animations/SlideRightRoute.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:notes_app/Animations/Scrolling.dart';
@@ -202,7 +201,7 @@ class _LoginPageState extends State<LoginPage> {
                                   context, SlideRightRoute(page: MyHomePage()));
                             }
                           },
-                          color: colorTheme,
+                          color: Styles.colorTheme,
                         ),
                         padding: EdgeInsets.only(top: 30),
 

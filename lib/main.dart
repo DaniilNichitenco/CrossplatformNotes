@@ -3,7 +3,7 @@ import 'package:notes_app/Pages/LoginPage.dart';
 //import 'package:notes_app/Pages/home_page.dart';
 
 void main() => runApp(MyApp());
-Color colorTheme = Color.fromARGB(255, 33, 39, 97);
+
 
 class MyApp extends StatelessWidget {
   @override
