@@ -18,18 +18,16 @@ class _LoginPageState extends State<LoginPage> {
   final FocusNode firstFocusNode = FocusNode();
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     myFocusNode = FocusNode();
-
   }
 
   @override
-  void dispose(){
+  void dispose() {
     myFocusNode.dispose();
     super.dispose();
   }
-
 
   final userEmail = '1';
   final userPass = '1';
@@ -55,23 +53,19 @@ class _LoginPageState extends State<LoginPage> {
       focusNode: firstFocusNode,
       onFieldSubmitted: (String value) {
         _changeFocus(context, firstFocusNode, myFocusNode);
-        },
+      },
       controller: emailFieldController,
       style: TextStyle(color: Colors.white),
       decoration: new InputDecoration(
-          icon: Icon(Icons.person, color:  Colors.white),
+          icon: Icon(Icons.person, color: Colors.white),
           hintText: 'user123@gmail.com',
           hintStyle: TextStyle(color: Colors.grey),
           labelText: 'E-mail Address',
           labelStyle: TextStyle(color: Colors.white),
           enabledBorder: new UnderlineInputBorder(
-              borderSide: new BorderSide(
-                  color: Colors.grey
-              )
-          ),
+              borderSide: new BorderSide(color: Colors.grey)),
           focusedBorder: UnderlineInputBorder(
-              borderSide: new BorderSide(color: Colors.white)
-          )),
+              borderSide: new BorderSide(color: Colors.white))),
     );
 
     passwordFormField = new TextFormField(
@@ -89,27 +83,25 @@ class _LoginPageState extends State<LoginPage> {
       },
       controller: passwordFieldController,
       textInputAction: TextInputAction.go,
-      onFieldSubmitted: (v){
+      onFieldSubmitted: (v) {
         if (_formKey.currentState.validate()) {
-          Navigator.push(
-              context, SlideRightRoute(page: MyHomePage()));
+          Navigator.push(context, SlideRightRoute(page: MyHomePage()));
         }
       },
       style: TextStyle(color: Colors.white),
       decoration: new InputDecoration(
-          icon: Icon(Icons.lock, color: Colors.white,),
+          icon: Icon(
+            Icons.lock,
+            color: Colors.white,
+          ),
           hintText: 'Password',
           hintStyle: TextStyle(color: Colors.grey),
           labelText: 'Enter your password',
           labelStyle: TextStyle(color: Colors.white),
           enabledBorder: new UnderlineInputBorder(
-            borderSide: new BorderSide(
-              color: Colors.grey
-            )
-          ),
+              borderSide: new BorderSide(color: Colors.grey)),
           focusedBorder: UnderlineInputBorder(
-            borderSide: new BorderSide(color: Colors.white)
-          )),
+              borderSide: new BorderSide(color: Colors.white))),
     );
   }
 
@@ -137,132 +129,127 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         child: Container(
-          padding: EdgeInsets.only(
-            top: MediaQuery.of(context).size.height * 0.06,
-            left: MediaQuery.of(context).size.width * 0.1,
-            right: MediaQuery.of(context).size.width * 0.1,
-
-          ),
-          child: ScrollConfiguration(behavior: ListScrollingWithoutIndicating(), child:
-          ListView(
-            children: <Widget>[
-              Center(
-                child: Text(
-                  "CrossplatformNotes",
-                  style: TextStyle(
-                    shadows: [
-                      Shadow(
-                        blurRadius: 2.0,
-                        color: Colors.blueGrey,
-                        offset: Offset(1.30, 1.30),
-                      )
-                    ],
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                    fontSize: 30,
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * 0.06,
+              left: MediaQuery.of(context).size.width * 0.1,
+              right: MediaQuery.of(context).size.width * 0.1,
+            ),
+            child: ScrollConfiguration(
+              behavior: ListScrollingWithoutIndicating(),
+              child: ListView(
+                children: <Widget>[
+                  Center(
+                    child: Text(
+                      "CrossplatformNotes",
+                      style: TextStyle(
+                        shadows: [
+                          Shadow(
+                            blurRadius: 2.0,
+                            color: Colors.black12,
+                            offset: Offset(1.30, 1.30),
+                          )
+                        ],
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic,
+                        fontSize: 30,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Center(
-                child: Text(
-                  "GROWTH * HAPPENS * TODAY",
-                  style: TextStyle(
-                    color: Colors.white,
-
+                  Center(
+                    child: Text(
+                      "GROWTH * HAPPENS * TODAY",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Center(
-                child: Container(
-                  padding: EdgeInsets.only(top: 40, bottom: 30),
-                  child: Text(
-                    "SIGN IN",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40,
-                      shadows: [
-                        Shadow(
-                          blurRadius: 2.0,
-                          color: Colors.blueGrey,
-                          offset: Offset(1.20, 1.20),
+                  Center(
+                    child: Container(
+                      padding: EdgeInsets.only(top: 40, bottom: 30),
+                      child: Text(
+                        "SIGN IN",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 40,
+                          shadows: [
+                            Shadow(
+                              blurRadius: 2.0,
+                              color: Colors.black12,
+                              offset: Offset(1.20, 1.20),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        emailFormField,
+                        Container(
+                          padding: EdgeInsets.only(bottom: 10),
+                          child: passwordFormField,
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            "Forgot your password?",
+                            style: TextStyle(color: Colors.white70),
+                          ),
+                        ),
+                        new ListTile(
+                          title: Container(
+                            height: 72,
+                            margin: EdgeInsets.symmetric(horizontal: 50),
+                            child: RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(100.0),
+                              ),
+                              child: new Text(
+                                "Login",
+                                style: new TextStyle(
+                                    color: Styles.colorTheme, fontSize: 18),
+                              ),
+                              onPressed: () {
+                                if (_formKey.currentState.validate()) {
+                                  Navigator.push(context,
+                                      SlideRightRoute(page: MyHomePage()));
+                                }
+                              },
+                              color: Colors.white,
+                            ),
+                            padding: EdgeInsets.only(top: 30),
+                          ),
+                        ),
+                        Container(
+                            padding: EdgeInsets.only(top: 20.0),
+                            child: Center(
+                              child: GoogleSignInButton(
+                                text:
+                                    "  Sign in with Google   ", //отступы нужны для выравнивания
+                                borderRadius: 10.0,
+                                darkMode: true,
+                                onPressed: () {},
+                              ),
+                            )),
+                        Center(
+                          child: FacebookSignInButton(
+                            text: "Sign in with Facebook",
+                            onPressed: () {},
+                            borderRadius: 10.0,
+                          ),
                         )
                       ],
                     ),
-                  ),
-                ),
+                  )
+                ],
               ),
-              Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    emailFormField,
-                    Container(
-                      padding: EdgeInsets.only(bottom: 10),
-                      child: passwordFormField,
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "Forgot your password?",
-                        style: TextStyle(color: Colors.white70),
-                      ),
-                    ),
-                    new ListTile(
-                      title: Container(
-                        height: 72,
-                        margin: EdgeInsets.symmetric(
-                            horizontal: 50),
-                        child: RaisedButton(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(100.0),
-                          ),
-                          child: new Text(
-                            "Login",
-                            style: new TextStyle(
-                                color: Colors.white,
-                                fontSize: 18),
-                          ),
-                          onPressed: () {
-                            if (_formKey.currentState.validate()) {
-                              Navigator.push(
-                                  context, SlideRightRoute(page: MyHomePage()));
-                            }
-                          },
-                          color: Styles.colorTheme,
-                        ),
-                        padding: EdgeInsets.only(top: 30),
-
-                      ),
-                    ),
-                    Container(
-                        padding: EdgeInsets.only(top: 20.0),
-                        child: Center(
-                          child: GoogleSignInButton(
-                            text: "  Sign in with Google   ", //отступы нужны для выравнивания
-                            borderRadius: 10.0,
-                            darkMode: true,
-                            onPressed: (){},
-                          ),
-                        )
-                    ),
-                    Center(
-                      child: FacebookSignInButton(
-                        text: "Sign in with Facebook",
-                        onPressed: (){},
-                        borderRadius: 10.0,
-                      ),
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),)
-        ),
+            )),
       ),
     );
   }
 }
-
