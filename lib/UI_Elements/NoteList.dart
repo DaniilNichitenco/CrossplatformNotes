@@ -12,9 +12,7 @@ class _NoteListState extends State<NoteList> {
     Note(title: 'My note1', text: 'Something'),
     Note(title: 'My note1', text: 'Something'),
     Note(title: 'My note1', text: 'Something'),
-    Note(
-      title: 'My note',
-    ),
+    Note(title: 'My note'),
     Note(text: 'Something'),
     Note(),
   ];
