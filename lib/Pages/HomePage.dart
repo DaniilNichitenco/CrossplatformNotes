@@ -22,25 +22,21 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     Widget popupMenu() => PopupMenuButton(
           itemBuilder: (context) {
-            var list = List<PopupMenuEntry<Object>>();
-            list.add(
+            List<PopupMenuEntry<Object>> list = [
               PopupMenuItem(
                 child: Text("Settings"),
                 value: 1,
               ),
-            );
-            list.add(
               PopupMenuItem(
                 child: Text("Profile"),
                 value: 2,
               ),
-            );
-            list.add(
               PopupMenuItem(
                 child: Text("Languages"),
                 value: 3,
               ),
-            );
+            ];
+
             return list;
           },
           elevation: 5,
@@ -87,9 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: ListView(
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.022),
-        children: <Widget>[
-          ListCard()
-        ],
+        children: <Widget>[ListCard()],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -102,5 +96,4 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-
 }
