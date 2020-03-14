@@ -3,7 +3,7 @@ import 'package:notes_app/Animations/SlideRightRoute.dart';
 import 'package:notes_app/Pages/NotePage.dart';
 import 'package:notes_app/UI_Elements/menuDrawer.dart';
 import 'package:notes_app/Styles/Styles.dart';
-import 'package:notes_app/UI_Elements/ListCard.dart';
+import 'package:notes_app/UI_Elements/NoteList.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -83,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: ListView(
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.022),
-        children: <Widget>[ListCard()],
+        children: <Widget>[NoteList()],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
