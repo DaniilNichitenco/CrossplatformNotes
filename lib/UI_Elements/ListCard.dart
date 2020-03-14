@@ -11,11 +11,11 @@ class ListCard extends StatefulWidget{
 class _ListCardState extends State<ListCard>{
 
   List<Note> notes = [
-    Note(title: 'My note1', text: Text('Something')),
-    Note(title: 'My note2', text: Text('Something')),
-    Note(title: 'My note3', text: Text('Something')),
+    Note(title: 'My note1', text: 'Something'),
+    Note(title: 'My note1', text: 'Something'),
+    Note(title: 'My note1', text: 'Something'),
     Note(title: 'My note', ),
-    Note(text: Text('Something')),
+    Note(text: 'Something'),
     Note(),
   ];
 

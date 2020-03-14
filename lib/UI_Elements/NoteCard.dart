@@ -57,7 +57,7 @@ class NoteCard extends StatelessWidget {
                         fontWeight: FontWeight.bold),
                   ),
                   Container(
-                    child: note.text,
+                    child: Text(note.text),
                     margin: EdgeInsets.only(top: 5),
                   )
                 ],

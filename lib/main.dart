@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/Pages/HomePage.dart';
 import 'package:notes_app/Pages/LoginPage.dart';
 //import 'package:notes_app/Pages/home_page.dart';
 
@@ -13,7 +12,7 @@ class MyApp extends StatelessWidget {
       //title: 'Crossplatform notes',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: MyHomePage(),
+      home: LoginPage(),
     );
   }
 }

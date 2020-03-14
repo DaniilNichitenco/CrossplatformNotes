@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 class Note {
 
   String title;
-  Text text;
+  String text;
 
-  Note({this.title = "Note", this.text = const Text(' ')});
+  Note({this.title = "Note", this.text = ''});
 }

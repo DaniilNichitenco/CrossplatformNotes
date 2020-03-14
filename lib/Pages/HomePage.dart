@@ -94,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context,
-              SlideRightRoute(page: NotePage("NewNote", Text("Your new note"))));
+              SlideRightRoute(page: NotePage("NewNote", "Your new note")));
         },
         tooltip: 'New note',
         child: Icon(Icons.add),
