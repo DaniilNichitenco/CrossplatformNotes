@@ -9,4 +9,6 @@ class Styles {
     Color.fromARGB(255, 42, 58, 102),
     Color.fromARGB(255, 42, 58, 95),
   ];
+
+  static final Color cardColor = Colors.blueGrey;
 }
