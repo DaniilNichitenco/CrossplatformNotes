@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notes_app/Animations/SlideRightRoute.dart';
 import 'package:notes_app/Pages/NotePage.dart';
+import 'package:notes_app/Styles/Styles.dart';
+import 'package:notes_app/UI_Elements/Note.dart';
 
 class NoteCard extends StatelessWidget {
-  NoteCard(
-      [this.cardColor = Colors.lightBlue,
-        this.noteTitle = "Note",
-        this.cardContent = const Text("Note", textAlign: TextAlign.center)]);
-  final Color cardColor;
-  final Widget cardContent;
-  final String noteTitle;
+
+  final cardColor = Styles.cardColor;
+  final Note note;
+  NoteCard(this.note);
+
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class NoteCard extends StatelessWidget {
         child: FlatButton(
             onPressed: () {
               Navigator.push(context,
-                  SlideRightRoute(page: NotePage(noteTitle, cardContent)));
+                  SlideRightRoute(page: NotePage(note.title, note.text)));
             },
             color: cardColor,
             shape: RoundedRectangleBorder(
@@ -50,14 +50,14 @@ class NoteCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    noteTitle,
+                    note.title,
                     style: TextStyle(
                         fontSize: 18,
                         color: Colors.black,
                         fontWeight: FontWeight.bold),
                   ),
                   Container(
-                    child: cardContent,
+                    child: Text(note.text),
                     margin: EdgeInsets.only(top: 5),
                   )
                 ],

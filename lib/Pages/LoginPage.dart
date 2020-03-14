@@ -212,7 +212,7 @@ class _LoginPageState extends State<LoginPage> {
                               child: new Text(
                                 "Login",
                                 style: new TextStyle(
-                                    color: Styles.colorTheme, fontSize: 18),
+                                    color: Colors.white, fontSize: 18),
                               ),
                               onPressed: () {
                                 if (_formKey.currentState.validate()) {
@@ -220,7 +220,7 @@ class _LoginPageState extends State<LoginPage> {
                                       SlideRightRoute(page: MyHomePage()));
                                 }
                               },
-                              color: Colors.white,
+                              color: Styles.colorTheme,
                             ),
                             padding: EdgeInsets.only(top: 30),
                           ),

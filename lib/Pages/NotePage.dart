@@ -6,31 +6,32 @@ import 'package:notes_app/UI_Elements/AppBarIcon.dart';
 import 'package:notes_app/Animations/Scrolling.dart';
 
 class NotePage extends StatefulWidget {
-  NotePage(this.title, this.content);
+  NotePage(this.title, this.text);
 
   final String title;
-  final Widget content;
+  final String text;
 
   @override
-  _NotePageState createState() => _NotePageState(title, content);
+  _NotePageState createState() => _NotePageState(title, text);
 }
 
 class _NotePageState extends State<NotePage> {
-  _NotePageState([
-    this.noteTitle,
-    this.content = const TextField(
-      textInputAction: TextInputAction.newline,
-      keyboardType: TextInputType.multiline,
-      maxLines: null,
-      decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: "Write here",
-          hintStyle: TextStyle(fontStyle: FontStyle.italic)),
-    ),
-  ]);
   final String noteTitle;
-  final Widget content;
+  static String noteText;
 
+  _NotePageState([this.noteTitle, text,]) {
+    noteText = text;
+  }
+
+  final Widget content = TextFormField(
+    textInputAction: TextInputAction.newline,
+    keyboardType: TextInputType.multiline,
+    maxLines: null,
+    decoration: InputDecoration(
+        border: InputBorder.none,
+        hintText: 'Write here...',
+        hintStyle: TextStyle(fontStyle: FontStyle.italic)),
+  );
 
   @override
   Widget build(BuildContext context) {
