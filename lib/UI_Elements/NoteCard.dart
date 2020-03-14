@@ -6,11 +6,10 @@ import 'package:notes_app/Styles/Styles.dart';
 import 'package:notes_app/UI_Elements/Note.dart';
 
 class NoteCard extends StatelessWidget {
-
-  final cardColor = Styles.cardColor;
+  final cardColor = Colors.white;
+  // Color.fromARGB(255, 227, 242, 253); //Styles.cardColor;
   final Note note;
   NoteCard(this.note);
-
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,7 @@ class NoteCard extends StatelessWidget {
               BoxShadow(
                 color: Colors.black26,
                 blurRadius: 5.0,
-                offset: Offset(8, 8),
+                offset: Offset(3, 3),
               )
             ]),
         margin: EdgeInsets.only(
@@ -39,7 +38,7 @@ class NoteCard extends StatelessWidget {
             color: cardColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
-              //side: BorderSide(color: Colors.black) //Контур
+              //side: BorderSide(color: Colors.black26) //Контур
             ),
             child: Container(
               padding: EdgeInsets.only(top: 10, bottom: 10, left: 0, right: 0),
