@@ -14,6 +14,9 @@ class _ListCardState extends State<ListCard>{
     Note(title: 'My note1', text: Text('Something')),
     Note(title: 'My note2', text: Text('Something')),
     Note(title: 'My note3', text: Text('Something')),
+    Note(title: 'My note', ),
+    Note(text: Text('Something')),
+    Note(),
   ];
 
   @override
