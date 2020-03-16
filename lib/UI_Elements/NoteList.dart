@@ -20,7 +20,14 @@ class _NoteListState extends State<NoteList> {
   @override
   Widget build(BuildContext context) {
     Widget list = new Wrap(
-      children: notes.map((note) => NoteCard(note)).toList(),
+      children: notes.map((note) => NoteCard(
+        note: note,
+        delete: () {
+          setState(() {
+            notes.remove(note);
+          });
+        },
+      )).toList(),
     );
 
     return list;
