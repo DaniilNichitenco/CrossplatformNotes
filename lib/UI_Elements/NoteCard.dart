@@ -81,7 +81,7 @@ class NoteCard extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.only(top: 10, bottom: 10, left: 0, right: 0),
           constraints: BoxConstraints(
-              minHeight: 100, maxHeight: 150, minWidth: width, maxWidth: width),
+              minHeight: 100, maxHeight: 170, minWidth: width, maxWidth: width),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,7 +109,7 @@ class NoteCard extends StatelessWidget {
                 ],
               ),
               Container(
-                child: Text(note.text),
+                child: Text(note.text, maxLines: 7),
                 margin: EdgeInsets.only(top: 5),
               )
             ],
