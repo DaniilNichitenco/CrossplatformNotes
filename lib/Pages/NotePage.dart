@@ -8,19 +8,56 @@ import 'package:notes_app/Animations/Scrolling.dart';
 import 'package:notes_app/UI_Elements/popup_menu.dart';
 
 class NotePage extends StatefulWidget {
-  NotePage(this.note);
+  NotePage(this.note, this.delete);
 
   final Note note;
+  final Function delete;
 
   @override
-  _NotePageState createState() => _NotePageState(note);
+  _NotePageState createState() => _NotePageState(note, delete);
 }
 
 class _NotePageState extends State<NotePage> {
 
   final Note note;
+  final Function delete;
 
-  _NotePageState([this.note]);
+  _NotePageState([this.note, this.delete]);
+
+  _deleteNote(BuildContext context) {
+
+    Widget cancelButton = FlatButton(
+      child: Text('Cancel'),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+
+    Widget deleteButton = FlatButton(
+      child: Text('Delete'),
+      onPressed: () {
+        delete();
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text('Delete the note?'),
+      content: Text('Are you sure you want to delete this note?'),
+      actions: <Widget>[
+        cancelButton,
+        deleteButton
+      ],
+    );
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        }
+    );
+  }
 
   choiceAction(choice){
     switch(choice){
@@ -31,6 +68,7 @@ class _NotePageState extends State<NotePage> {
         }
       case PopupMenu.Delete:
         {
+          _deleteNote(context);
           print(choice);
           break;
         }

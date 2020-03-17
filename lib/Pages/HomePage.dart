@@ -21,7 +21,13 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       NoteList.notes.add(Note(title: 'NewNote', text: 'Your new note'));
       Navigator.push(context,
-          SlideRightRoute(page: NotePage(NoteList.notes.last)));
+          SlideRightRoute(page: NotePage(
+              NoteList.notes.last,
+            () {
+              setState(() {
+                NoteList.notes.remove(NoteList.notes.last);
+              });
+            })));
       print(NoteList.notes.last.title);
     });
   }
