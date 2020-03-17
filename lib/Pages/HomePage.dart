@@ -4,6 +4,8 @@ import 'package:notes_app/Pages/NotePage.dart';
 import 'package:notes_app/UI_Elements/menuDrawer.dart';
 import 'package:notes_app/Styles/Styles.dart';
 import 'package:notes_app/UI_Elements/NoteList.dart';
+import 'package:notes_app/UI_Elements/NoteCard.dart';
+import 'package:notes_app/UI_Elements/Note.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -15,7 +17,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   void createNote() {
-    setState(() {});
+    setState(() {
+      Navigator.push(context,
+          SlideRightRoute(page: NotePage("NewNote", "Your new note")));
+      NoteList.notes.add(Note(title: 'NewNote', text: 'Your new note'));
+    });
   }
 
   @override
@@ -65,6 +71,17 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
 
+    Widget list = new Wrap(
+      children: NoteList.notes.map((note) => NoteCard(
+        note: note,
+        delete: () {
+          setState(() {
+            NoteList.notes.remove(note);
+          });
+        },
+      )).toList(),
+    );
+
     return Scaffold(
       drawer: MenuDrawer(),
       appBar: AppBar(
@@ -83,12 +100,11 @@ class _MyHomePageState extends State<MyHomePage> {
       body: ListView(
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.022),
-        children: <Widget>[NoteList()],
+        children: <Widget>[list],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context,
-              SlideRightRoute(page: NotePage("NewNote", "Your new note")));
+          createNote();
         },
         tooltip: 'New note',
         child: Icon(Icons.add),
