@@ -4,6 +4,7 @@ import 'package:flutter/painting.dart';
 import 'package:notes_app/Styles/Styles.dart';
 import 'package:notes_app/UI_Elements/AppBarIcon.dart';
 import 'package:notes_app/Animations/Scrolling.dart';
+import 'package:notes_app/UI_Elements/popup_menu.dart';
 
 class NotePage extends StatefulWidget {
   NotePage(this.title, this.text);
@@ -23,18 +24,33 @@ class _NotePageState extends State<NotePage> {
     noteText = text;
   }
 
-  final Widget content = TextFormField(
-    textInputAction: TextInputAction.newline,
-    keyboardType: TextInputType.multiline,
-    maxLines: null,
-    decoration: InputDecoration(
-        border: InputBorder.none,
-        hintText: 'Write here...',
-        hintStyle: TextStyle(fontStyle: FontStyle.italic)),
-  );
+  choiceAction(choice){
+    switch(choice){
+      case PopupMenu.Rename:
+        {
+          print(choice);
+          break;
+        }
+      case PopupMenu.Delete:
+        {
+          print(choice);
+          break;
+        }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+
+    Widget content = TextFormField(
+      textInputAction: TextInputAction.newline,
+      keyboardType: TextInputType.multiline,
+      maxLines: null,
+      decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: 'Write here...',
+          hintStyle: TextStyle(fontStyle: FontStyle.italic)),
+    );
 
     Widget noteArea = new Container(
         child: ScrollConfiguration(behavior: ListScrollingWithoutIndicating(), child: ListView(
@@ -56,31 +72,18 @@ class _NotePageState extends State<NotePage> {
           ]).toList(),
         )));
 
-    Widget popupMenu() => PopupMenuButton(
-          itemBuilder: (context) {
-            var list = List<PopupMenuEntry<Object>>();
-            list.add(
-              PopupMenuItem(
-                child: Text("Settings"),
-                value: 1,
-              ),
-            );
-            list.add(
-              PopupMenuItem(
-                child: Text("Profile"),
-                value: 2,
-              ),
-            );
-            list.add(
-              PopupMenuItem(
-                child: Text("Languages"),
-                value: 3,
-              ),
-            );
-            return list;
-          },
-          elevation: 5,
-        );
+    Widget popupMenu() => PopupMenuButton<String>(
+      onSelected: choiceAction,
+      itemBuilder: (context) {
+        return PopupMenu.notePageList.map((String choice){
+          return PopupMenuItem<String>(
+            value: choice,
+            child: Text(choice),
+          );
+        }).toList();
+      },
+      elevation: 5,
+    );
 
     return Scaffold(
       appBar: AppBar(
