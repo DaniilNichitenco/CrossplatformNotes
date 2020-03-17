@@ -1,40 +1,55 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:notes_app/UI_Elements/Note.dart';
 import 'package:notes_app/Styles/Styles.dart';
 import 'package:notes_app/UI_Elements/AppBarIcon.dart';
 import 'package:notes_app/Animations/Scrolling.dart';
+import 'package:notes_app/UI_Elements/popup_menu.dart';
 
 class NotePage extends StatefulWidget {
-  NotePage(this.title, this.text);
+  NotePage(this.note);
 
-  final String title;
-  final String text;
+  final Note note;
 
   @override
-  _NotePageState createState() => _NotePageState(title, text);
+  _NotePageState createState() => _NotePageState(note);
 }
 
 class _NotePageState extends State<NotePage> {
-  final String noteTitle;
-  static String noteText;
 
-  _NotePageState([this.noteTitle, text,]) {
-    noteText = text;
+  final Note note;
+
+  _NotePageState([this.note]);
+
+  choiceAction(choice){
+    switch(choice){
+      case PopupMenu.Rename:
+        {
+          print(choice);
+          break;
+        }
+      case PopupMenu.Delete:
+        {
+          print(choice);
+          break;
+        }
+    }
   }
-
-  final Widget content = TextFormField(
-    textInputAction: TextInputAction.newline,
-    keyboardType: TextInputType.multiline,
-    maxLines: null,
-    decoration: InputDecoration(
-        border: InputBorder.none,
-        hintText: 'Write here...',
-        hintStyle: TextStyle(fontStyle: FontStyle.italic)),
-  );
 
   @override
   Widget build(BuildContext context) {
+
+    Widget content = TextFormField(
+      initialValue: note.text,
+      textInputAction: TextInputAction.newline,
+      keyboardType: TextInputType.multiline,
+      maxLines: null,
+      decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: 'Write here...',
+          hintStyle: TextStyle(fontStyle: FontStyle.italic)),
+    );
 
     Widget noteArea = new Container(
         child: ScrollConfiguration(behavior: ListScrollingWithoutIndicating(), child: ListView(
@@ -42,7 +57,7 @@ class _NotePageState extends State<NotePage> {
             ListTile(
               title: Container(
                 child: Text(
-                  noteTitle,
+                  note.title,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 ),
               ),
@@ -56,35 +71,22 @@ class _NotePageState extends State<NotePage> {
           ]).toList(),
         )));
 
-    Widget popupMenu() => PopupMenuButton(
-          itemBuilder: (context) {
-            var list = List<PopupMenuEntry<Object>>();
-            list.add(
-              PopupMenuItem(
-                child: Text("Settings"),
-                value: 1,
-              ),
-            );
-            list.add(
-              PopupMenuItem(
-                child: Text("Profile"),
-                value: 2,
-              ),
-            );
-            list.add(
-              PopupMenuItem(
-                child: Text("Languages"),
-                value: 3,
-              ),
-            );
-            return list;
-          },
-          elevation: 5,
-        );
+    Widget popupMenu() => PopupMenuButton<String>(
+      onSelected: choiceAction,
+      itemBuilder: (context) {
+        return PopupMenu.notePageList.map((String choice){
+          return PopupMenuItem<String>(
+            value: choice,
+            child: Text(choice),
+          );
+        }).toList();
+      },
+      elevation: 5,
+    );
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(noteTitle),
+        title: Text(note.title),
         actions: <Widget>[
           AppBarIcon(
             isChecked: false,

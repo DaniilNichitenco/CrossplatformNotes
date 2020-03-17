@@ -71,7 +71,7 @@ class NoteCard extends StatelessWidget {
       child: FlatButton(
         onPressed: () {
           Navigator.push(
-              context, SlideRightRoute(page: NotePage(note.title, note.text)));
+              context, SlideRightRoute(page: NotePage(note)));
         },
         color: cardColor,
         shape: RoundedRectangleBorder(

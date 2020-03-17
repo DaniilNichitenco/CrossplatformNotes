@@ -6,6 +6,7 @@ import 'package:notes_app/Styles/Styles.dart';
 import 'package:notes_app/UI_Elements/NoteList.dart';
 import 'package:notes_app/UI_Elements/NoteCard.dart';
 import 'package:notes_app/UI_Elements/Note.dart';
+import 'package:notes_app/UI_Elements/popup_menu.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -18,32 +19,44 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   void createNote() {
     setState(() {
-      Navigator.push(context,
-          SlideRightRoute(page: NotePage("NewNote", "Your new note")));
       NoteList.notes.add(Note(title: 'NewNote', text: 'Your new note'));
+      Navigator.push(context,
+          SlideRightRoute(page: NotePage(NoteList.notes.last)));
+      print(NoteList.notes.last.title);
     });
+  }
+
+  void choiceAction(String choice){
+    switch(choice){
+      case PopupMenu.Settings:
+        {
+          print(choice);
+          break;
+        }
+      case PopupMenu.Profile:
+        {
+          print(choice);
+          break;
+        }
+      case PopupMenu.Languages:
+        {
+          print(choice);
+          break;
+        }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget popupMenu() => PopupMenuButton(
+    Widget popupMenu() => PopupMenuButton<String>(
+          onSelected: choiceAction,
           itemBuilder: (context) {
-            List<PopupMenuEntry<Object>> list = [
-              PopupMenuItem(
-                child: Text("Settings"),
-                value: 1,
-              ),
-              PopupMenuItem(
-                child: Text("Profile"),
-                value: 2,
-              ),
-              PopupMenuItem(
-                child: Text("Languages"),
-                value: 3,
-              ),
-            ];
-
-            return list;
+            return PopupMenu.homePageList.map((String choice){
+              return PopupMenuItem<String>(
+                value: choice,
+                child: Text(choice),
+                );
+            }).toList();
           },
           elevation: 5,
         );
