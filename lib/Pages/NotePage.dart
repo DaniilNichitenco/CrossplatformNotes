@@ -43,7 +43,7 @@ class _NotePageState extends State<NotePage> {
     );
 
     AlertDialog alert = AlertDialog(
-      title: Text('Delete the note?'),
+      title: Text('Delete ${note.title}?'),
       content: Text('Are you sure you want to delete this note?'),
       actions: <Widget>[
         cancelButton,
@@ -59,10 +59,87 @@ class _NotePageState extends State<NotePage> {
     );
   }
 
+  _renameNote(BuildContext context) {
+
+    final _formKey = GlobalKey<FormState>();
+    String _newTitle;
+
+    Widget renameField = TextFormField(
+      initialValue: note.title,
+      textInputAction: TextInputAction.go,
+      keyboardType: TextInputType.text,
+      maxLines: 1,
+      maxLength: 10,
+      validator: (value){
+        if(value.isEmpty){
+          return 'Field cannot be empty';
+        }
+        _newTitle = value;
+        return null;
+      },
+      onFieldSubmitted: (v) {
+        if(_formKey.currentState.validate())
+          {
+            setState(() {
+              note.title = _newTitle;
+            });
+            Navigator.of(context).pop();
+          }
+      },
+      decoration: InputDecoration(
+        enabledBorder: UnderlineInputBorder(
+            borderSide: new BorderSide(color: Colors.grey)),
+          focusedBorder: UnderlineInputBorder(
+              borderSide: new BorderSide(color: Colors.black)),
+          hintText: 'Rename...',
+          hintStyle: TextStyle(fontStyle: FontStyle.italic)),
+    );
+
+    Widget cancelButton = FlatButton(
+      child: Text('Cancel'),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+
+    Widget renameButton = FlatButton(
+      child: Text('Rename'),
+      onPressed: () {
+        if(_formKey.currentState.validate())
+          {
+            setState(() {
+              note.title = _newTitle;
+            });
+            Navigator.of(context).pop();
+          }
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text('Rename the ${note.title}?'),
+      content: Form(
+        key: _formKey,
+        child: renameField,
+      ),
+      actions: <Widget>[
+        cancelButton,
+        renameButton
+      ],
+    );
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        }
+    );
+  }
+
   choiceAction(choice){
     switch(choice){
       case PopupMenu.Rename:
         {
+          _renameNote(context);
           print(choice);
           break;
         }
