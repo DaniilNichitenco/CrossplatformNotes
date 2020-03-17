@@ -19,9 +19,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   void createNote() {
     setState(() {
-      Navigator.push(context,
-          SlideRightRoute(page: NotePage("NewNote", "Your new note")));
       NoteList.notes.add(Note(title: 'NewNote', text: 'Your new note'));
+      Navigator.push(context,
+          SlideRightRoute(page: NotePage(NoteList.notes.last)));
+      print(NoteList.notes.last.title);
     });
   }
 
