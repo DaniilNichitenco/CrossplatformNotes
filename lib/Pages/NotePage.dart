@@ -19,10 +19,25 @@ class NotePage extends StatefulWidget {
 
 class _NotePageState extends State<NotePage> {
 
+  TextEditingController _controller = TextEditingController();
+
   final Note note;
   final Function delete;
 
   _NotePageState([this.note, this.delete]);
+
+  void initState() {
+    _controller = TextEditingController(text: note.text);
+    _controller.addListener(() {
+      note.text = _controller.text;
+    });
+    super.initState();
+  }
+
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   _deleteNote(BuildContext context) {
 
@@ -156,7 +171,7 @@ class _NotePageState extends State<NotePage> {
   Widget build(BuildContext context) {
 
     Widget content = TextFormField(
-      initialValue: note.text,
+      controller: _controller,
       textInputAction: TextInputAction.newline,
       keyboardType: TextInputType.multiline,
       maxLines: null,
