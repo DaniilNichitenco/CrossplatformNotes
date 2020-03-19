@@ -1,18 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notes_app/Animations/SlideRightRoute.dart';
-import 'package:notes_app/Pages/NotePage.dart';
+import 'package:notes_app/model/NotePage.dart';
 import 'package:notes_app/Styles/Styles.dart';
-import 'package:notes_app/UI_Elements/Note.dart';
+import 'package:notes_app/model/Note.dart';
 
 class NoteCard extends StatelessWidget {
 
-  NoteCard({this.note, this.delete});
+  NoteCard({this.note, this.delete, this.index});
 
   final cardColor = Colors.white;
   // Color.fromARGB(255, 227, 242, 253); //Styles.cardColor;
   final Note note;
   final Function delete;
+  final int index;
 
   _deleteNote(BuildContext context) {
 
@@ -32,7 +33,7 @@ class NoteCard extends StatelessWidget {
     );
 
     AlertDialog alert = AlertDialog(
-      title: Text('Delete the note?'),
+      title: Text('Delete ${note.name}?'),
       content: Text('Are you sure you want to delete this note?'),
       actions: <Widget>[
         cancelButton,
@@ -71,13 +72,13 @@ class NoteCard extends StatelessWidget {
       child: FlatButton(
         onPressed: () {
           Navigator.push(
-              context, SlideRightRoute(page: NotePage(note, delete)));
+              context, SlideRightRoute(page: NotePage(note: note, delete: delete, index: index,)));
         },
         color: cardColor,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
             side: BorderSide(color: Colors.black38) //Контур
-            ),
+        ),
         child: Container(
           padding: EdgeInsets.only(top: 10, bottom: 10, left: 0, right: 0),
           constraints: BoxConstraints(
@@ -93,7 +94,7 @@ class NoteCard extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: Text(
-                      note.title,
+                      note.name,
                       style: TextStyle(
                           fontSize: 18,
                           color: Colors.black,
@@ -109,7 +110,7 @@ class NoteCard extends StatelessWidget {
                 ],
               ),
               Container(
-                child: Text(note.text, maxLines: 7),
+                child: Text("${note.isFavorite} ${note.content}", maxLines: 7),
                 margin: EdgeInsets.only(top: 5),
               )
             ],

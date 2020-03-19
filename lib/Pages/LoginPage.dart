@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/Pages/HomePage.dart';
+import 'package:notes_app/Pages/NoteListPage.dart';
 import 'package:notes_app/Styles/Styles.dart';
 import 'package:notes_app/Animations/SlideRightRoute.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
