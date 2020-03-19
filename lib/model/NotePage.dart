@@ -1,42 +1,85 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:notes_app/UI_Elements/Note.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_app/Styles/Styles.dart';
-import 'package:notes_app/UI_Elements/AppBarIcon.dart';
 import 'package:notes_app/Animations/Scrolling.dart';
 import 'package:notes_app/UI_Elements/popup_menu.dart';
+import 'package:notes_app/bloc/Note_bloc.dart';
+import 'package:notes_app/db/database_provider.dart';
+import 'package:notes_app/events/Update_note.dart';
+import 'package:notes_app/model/Note.dart';
 
 class NotePage extends StatefulWidget {
-  NotePage(this.note, this.delete);
+  NotePage({this.note, this.delete, this.index});
 
   final Note note;
   final Function delete;
+  final int index;
 
   @override
-  _NotePageState createState() => _NotePageState(note, delete);
+  _NotePageState createState() => _NotePageState();
 }
 
 class _NotePageState extends State<NotePage> {
 
   TextEditingController _controller = TextEditingController();
 
-  final Note note;
-  final Function delete;
-
-  _NotePageState([this.note, this.delete]);
+  String _title;
+  String _content;
+  bool _isFavorite = false;
 
   void initState() {
-    _controller = TextEditingController(text: note.text);
+    print('init');
+
+    _title = widget.note.name;
+    _content = widget.note.content;
+    _isFavorite = widget.note.isFavorite;
+
+    _controller = TextEditingController(text: _content);
+
     _controller.addListener(() {
-      note.text = _controller.text;
+      _content = _controller.text;
+      _save();
     });
+
     super.initState();
   }
 
+  @override
   void dispose() {
+
     _controller.dispose();
     super.dispose();
+  }
+
+  void _save() {
+
+    setState(() {
+
+      Note note = Note(
+          name: _title,
+          content: _content,
+          isFavorite: _isFavorite
+      );
+
+      DatabaseProvider.db.update(widget.note).then(
+            (storedFood) => BlocProvider.of<NoteBloc>(context).add(
+          UpdateNote(widget.index, note),
+        ),
+      );
+
+    });
+
+  }
+
+  void _addFavorite() {
+    setState(() {
+      _isFavorite = !_isFavorite;
+
+     _save();
+
+    });
   }
 
   _deleteNote(BuildContext context) {
@@ -51,14 +94,14 @@ class _NotePageState extends State<NotePage> {
     Widget deleteButton = FlatButton(
       child: Text('Delete'),
       onPressed: () {
-        delete();
+        widget.delete();
         Navigator.of(context).pop();
         Navigator.of(context).pop();
       },
     );
 
     AlertDialog alert = AlertDialog(
-      title: Text('Delete ${note.title}?'),
+      title: Text('Delete ${_title}?'),
       content: Text('Are you sure you want to delete this note?'),
       actions: <Widget>[
         cancelButton,
@@ -80,7 +123,7 @@ class _NotePageState extends State<NotePage> {
     String _newTitle;
 
     Widget renameField = TextFormField(
-      initialValue: note.title,
+      initialValue: widget.note.name,
       textInputAction: TextInputAction.go,
       keyboardType: TextInputType.text,
       maxLines: 1,
@@ -89,21 +132,33 @@ class _NotePageState extends State<NotePage> {
         if(value.isEmpty){
           return 'Field cannot be empty';
         }
+
         _newTitle = value;
         return null;
       },
       onFieldSubmitted: (v) {
         if(_formKey.currentState.validate())
-          {
-            setState(() {
-              note.title = _newTitle;
-            });
-            Navigator.of(context).pop();
-          }
+        {
+          setState(() {
+            _title = _newTitle;
+          });
+          Note note = Note(
+              name: _title,
+              content: _content,
+              isFavorite: _isFavorite
+          );
+
+          DatabaseProvider.db.update(widget.note).then(
+                  (storedNote) => BlocProvider.of<NoteBloc>(context).add(
+                UpdateNote(widget.index, note),
+              )
+          );
+          Navigator.of(context).pop();
+        }
       },
       decoration: InputDecoration(
-        enabledBorder: UnderlineInputBorder(
-            borderSide: new BorderSide(color: Colors.grey)),
+          enabledBorder: UnderlineInputBorder(
+              borderSide: new BorderSide(color: Colors.grey)),
           focusedBorder: UnderlineInputBorder(
               borderSide: new BorderSide(color: Colors.black)),
           hintText: 'Rename...',
@@ -121,17 +176,30 @@ class _NotePageState extends State<NotePage> {
       child: Text('Rename'),
       onPressed: () {
         if(_formKey.currentState.validate())
-          {
-            setState(() {
-              note.title = _newTitle;
-            });
-            Navigator.of(context).pop();
-          }
+        {
+          setState(() {
+            _title = _newTitle;
+
+            Note note = Note(
+              name: _title,
+              content: _content,
+              isFavorite: _isFavorite
+            );
+
+            DatabaseProvider.db.update(widget.note).then(
+                (storedNote) => BlocProvider.of<NoteBloc>(context).add(
+                  UpdateNote(widget.index, note),
+                )
+            );
+
+          });
+          Navigator.of(context).pop();
+        }
       },
     );
 
     AlertDialog alert = AlertDialog(
-      title: Text('Rename the ${note.title}?'),
+      title: Text('Rename the ${widget.note.name}?'),
       content: Form(
         key: _formKey,
         child: renameField,
@@ -170,6 +238,17 @@ class _NotePageState extends State<NotePage> {
   @override
   Widget build(BuildContext context) {
 
+    print(widget.note.name);
+    print(widget.note.content);
+    print(widget.note.isFavorite);
+    print('.......');
+    print(_title);
+    print(_content);
+    print(_isFavorite);
+    print('\n');
+    print(widget.note);
+
+
     Widget content = TextFormField(
       controller: _controller,
       textInputAction: TextInputAction.newline,
@@ -187,7 +266,7 @@ class _NotePageState extends State<NotePage> {
             ListTile(
               title: Container(
                 child: Text(
-                  note.title,
+                  _title,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 ),
               ),
@@ -216,14 +295,14 @@ class _NotePageState extends State<NotePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(note.title),
+        title: Text(_title),
         actions: <Widget>[
-          AppBarIcon(
-            isChecked: false,
-            uncheckedText: "Add to favorites",
-            checkedText: "Remove from favorites",
-            checkedIcon: Icons.star,
-            uncheckedIcon: Icons.star_border,
+          IconButton(
+            onPressed: () {
+              _addFavorite();
+            },
+            icon: _isFavorite ? Icon(Icons.star) : Icon(Icons.star_border),
+            tooltip: _isFavorite ? "Add to favorites" : "Remove frome favorits",
           ),
           IconButton(
             onPressed: () {},
