@@ -40,14 +40,18 @@ class _NotePageState extends State<NotePage> {
 
     _controller.addListener(() {
       _content = _controller.text;
-      _save();
-    });
 
+      _save();
+    }
+
+    );
     super.initState();
   }
 
   @override
   void dispose() {
+
+    _save();
 
     _controller.dispose();
     super.dispose();
@@ -60,11 +64,12 @@ class _NotePageState extends State<NotePage> {
       Note note = Note(
           name: _title,
           content: _content,
-          isFavorite: _isFavorite
+          isFavorite: _isFavorite,
+          id: widget.note.id
       );
 
-      DatabaseProvider.db.update(widget.note).then(
-            (storedFood) => BlocProvider.of<NoteBloc>(context).add(
+      DatabaseProvider.db.update(note).then(
+            (storedNote) => BlocProvider.of<NoteBloc>(context).add(
           UpdateNote(widget.index, note),
         ),
       );
@@ -123,7 +128,7 @@ class _NotePageState extends State<NotePage> {
     String _newTitle;
 
     Widget renameField = TextFormField(
-      initialValue: widget.note.name,
+      initialValue: _title,
       textInputAction: TextInputAction.go,
       keyboardType: TextInputType.text,
       maxLines: 1,
@@ -141,18 +146,10 @@ class _NotePageState extends State<NotePage> {
         {
           setState(() {
             _title = _newTitle;
-          });
-          Note note = Note(
-              name: _title,
-              content: _content,
-              isFavorite: _isFavorite
-          );
 
-          DatabaseProvider.db.update(widget.note).then(
-                  (storedNote) => BlocProvider.of<NoteBloc>(context).add(
-                UpdateNote(widget.index, note),
-              )
-          );
+            _save();
+
+          });
           Navigator.of(context).pop();
         }
       },
@@ -180,17 +177,7 @@ class _NotePageState extends State<NotePage> {
           setState(() {
             _title = _newTitle;
 
-            Note note = Note(
-              name: _title,
-              content: _content,
-              isFavorite: _isFavorite
-            );
-
-            DatabaseProvider.db.update(widget.note).then(
-                (storedNote) => BlocProvider.of<NoteBloc>(context).add(
-                  UpdateNote(widget.index, note),
-                )
-            );
+            _save();
 
           });
           Navigator.of(context).pop();
@@ -199,7 +186,7 @@ class _NotePageState extends State<NotePage> {
     );
 
     AlertDialog alert = AlertDialog(
-      title: Text('Rename the ${widget.note.name}?'),
+      title: Text('Rename "${_title}"?'),
       content: Form(
         key: _formKey,
         child: renameField,
@@ -239,15 +226,6 @@ class _NotePageState extends State<NotePage> {
   Widget build(BuildContext context) {
 
     print(widget.note.name);
-    print(widget.note.content);
-    print(widget.note.isFavorite);
-    print('.......');
-    print(_title);
-    print(_content);
-    print(_isFavorite);
-    print('\n');
-    print(widget.note);
-
 
     Widget content = TextFormField(
       controller: _controller,
