@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes_app/events/Update_note.dart';
 import 'package:notes_app/events/delete_note.dart';
 import 'package:notes_app/UI_Elements/menuDrawer.dart';
 import 'package:notes_app/Styles/Styles.dart';
@@ -11,7 +12,7 @@ import 'package:notes_app/UI_Elements/popup_menu.dart';
 import 'package:notes_app/bloc/Note_bloc.dart';
 import 'package:notes_app/db/database_provider.dart';
 import 'package:notes_app/events/Set_notes.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -23,17 +24,16 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  double _crossAxisSpacing = 10, _mainAxisSpacing = 12, _aspectRation = 2;
-  int _crossAxisCount = 2;
-
   @override
   void initState() {
     super.initState();
+
     DatabaseProvider.db.getNotes().then(
           (noteList) {
         BlocProvider.of<NoteBloc>(context).add(SetNotes(noteList));
       },
     );
+
   }
 
  void createNote(BuildContext context) {
@@ -172,11 +172,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
 
-    double screenWidth = MediaQuery.of(context).size.width;
-
-    var width = (screenWidth - ((_crossAxisCount - 1) * _crossAxisSpacing)) / _crossAxisCount;
-    var height = width / _aspectRation;
-
     Widget popupMenu() => PopupMenuButton<String>(
       onSelected: choiceAction,
       itemBuilder: (context) {
@@ -213,23 +208,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
 
-    /*Widget list = new Wrap(
-      children: NoteList.notes.map((note) => NoteCard(
-        note: note,
-        delete: () {
-          setState(() {
-            DatabaseProvider.db.delete(note.id).then(
-                    (_) {
-                  BlocProvider.of<NoteBloc>(context).add(
-                      DeleteNote(note.id)
-                  );
-                }
-            );
-          });
-        },
-      )).toList(),
-    );*/
-
     return Scaffold(
       drawer: MenuDrawer(),
       appBar: AppBar(
@@ -248,35 +226,34 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Container(
         child: BlocConsumer<NoteBloc, List<Note>>(
           builder: (context, noteList) {
-            return GridView.builder(
-              shrinkWrap: false,
-              scrollDirection: Axis.vertical,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: _crossAxisCount,
-                crossAxisSpacing: _crossAxisSpacing,
-                mainAxisSpacing: _mainAxisSpacing,
-                childAspectRatio: _aspectRation
-              ),
-              itemBuilder: (BuildContext context, int index) {
+            return StaggeredGridView.countBuilder(
+                crossAxisCount: 4,
+                itemCount: noteList.length,
+                reverse: false,
+                itemBuilder: (BuildContext context, int index){
+                  Note note = noteList[index];
 
-                Note note = noteList[index];
-                return NoteCard(
-                  note: note,
-                  delete: () {
-                    setState(() {
-                      DatabaseProvider.db.delete(note.id).then(
-                              (_) {
-                            BlocProvider.of<NoteBloc>(context).add(
-                                DeleteNote(index)
-                            );
-                          }
-                      );
-                    });
-                  },
-                  index: index,
-                );
-              },
-              itemCount: noteList.length,
+                  print(note.content);
+                  return NoteCard(
+                    note: note,
+                    delete: () {
+                      setState(() {
+                        DatabaseProvider.db.delete(note.id).then(
+                                (_) {
+                              BlocProvider.of<NoteBloc>(context).add(
+                                  DeleteNote(index)
+                              );
+                            }
+                        );
+                      });
+                    },
+                    index: index,
+                  );
+                },
+                staggeredTileBuilder: (int index) =>
+                    StaggeredTile.fit(2),
+              mainAxisSpacing: 4.0,
+              crossAxisSpacing: 4.0,
             );
           },
           listener: (BuildContext context, noteList) {},
@@ -293,32 +270,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-/*ListView(
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.022),
-        children: <Widget>[list],
-      ),*/
-
-/*ListTile(
-                    title: Text(note.name, style: TextStyle(fontSize: 30)),
-                    subtitle: Text(
-                      "Content: ${note.content}\nFavorite: ${note.isFavorite}",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    onTap: () {Navigator.push(
-                        context, SlideRightRoute(page: NotePage(
-                      note: note,
-                      index: index,
-                        delete: () {
-                          setState(() {
-                            DatabaseProvider.db.delete(note.id).then(
-                                    (_) {
-                                  BlocProvider.of<NoteBloc>(context).add(
-                                      DeleteNote(index)
-                                  );
-                                }
-                            );
-                          });
-                        }
-                    )));});*/
