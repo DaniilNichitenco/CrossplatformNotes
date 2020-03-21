@@ -28,6 +28,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
 
+    _updateDB();
+
+  }
+  void _updateDB() {
+
     DatabaseProvider.db.getNotes().then(
           (noteList) {
         BlocProvider.of<NoteBloc>(context).add(SetNotes(noteList));
@@ -172,6 +177,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
 
+    _updateDB();
+
     Widget popupMenu() => PopupMenuButton<String>(
       onSelected: choiceAction,
       itemBuilder: (context) {
@@ -230,25 +237,25 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisCount: 4,
                 itemCount: noteList.length,
                 reverse: false,
+              // ignore: missing_return
                 itemBuilder: (BuildContext context, int index){
                   Note note = noteList[index];
 
-                  print(note.content);
-                  return NoteCard(
-                    note: note,
-                    delete: () {
-                      setState(() {
-                        DatabaseProvider.db.delete(note.id).then(
-                                (_) {
-                              BlocProvider.of<NoteBloc>(context).add(
-                                  DeleteNote(index)
-                              );
-                            }
-                        );
-                      });
-                    },
-                    index: index,
-                  );
+                    return NoteCard(
+                      note: note,
+                      delete: () {
+                        setState(() {
+                          DatabaseProvider.db.delete(note.id).then(
+                                  (_) {
+                                BlocProvider.of<NoteBloc>(context).add(
+                                    DeleteNote(index)
+                                );
+                              }
+                          );
+                        });
+                      },
+                      index: index,
+                    );
                 },
                 staggeredTileBuilder: (int index) =>
                     StaggeredTile.fit(2),
