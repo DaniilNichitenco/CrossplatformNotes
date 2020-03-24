@@ -13,6 +13,8 @@ import 'package:notes_app/bloc/Note_bloc.dart';
 import 'package:notes_app/db/database_provider.dart';
 import 'package:notes_app/events/Set_notes.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:quill_delta/quill_delta.dart';
+import 'package:zefyr/zefyr.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -44,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
  void createNote(BuildContext context) {
 
     String _name = "Note";
-    String _content = "Something";
+    NotusDocument _content = NotusDocument.fromDelta(Delta()..insert("Something\n"));
     bool _isFavorite = false;
 
     final _formKey = GlobalKey<FormState>();

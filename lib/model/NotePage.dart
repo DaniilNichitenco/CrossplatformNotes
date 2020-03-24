@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -9,6 +11,7 @@ import 'package:notes_app/bloc/Note_bloc.dart';
 import 'package:notes_app/db/database_provider.dart';
 import 'package:notes_app/events/Update_note.dart';
 import 'package:notes_app/model/Note.dart';
+import 'package:zefyr/zefyr.dart';
 
 class NotePage extends StatefulWidget {
   NotePage({this.note, this.delete, this.index});
@@ -23,10 +26,12 @@ class NotePage extends StatefulWidget {
 
 class _NotePageState extends State<NotePage> {
 
-  TextEditingController _controller = TextEditingController();
+  //TextEditingController _controller = TextEditingController();
+  ZefyrController _controller;
+  FocusNode _focusNode;
 
   String _title;
-  String _content;
+  NotusDocument _content;
   bool _isFavorite = false;
 
   void initState() {
@@ -36,26 +41,40 @@ class _NotePageState extends State<NotePage> {
     _content = widget.note.content;
     _isFavorite = widget.note.isFavorite;
 
-    _controller = TextEditingController(text: _content);
+    _controller = ZefyrController(_content);
+    _focusNode = FocusNode();
 
     _controller.addListener(() {
+      _content = _controller.document;
+    });
+    /*_controller.addListener(() {
       _content = _controller.text;
 
       _save();
     }
-
-    );
+    );*/
     super.initState();
   }
 
   @override
-  void dispose() {
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    setState(() {
+      print('save');
+      _save();
+    });
+  }
 
+
+  @override
+  void dispose() async {
+
+    print('saveDisp');
     _save();
 
     _controller.dispose();
     super.dispose();
   }
+
 
   void _save() {
 
@@ -227,7 +246,18 @@ class _NotePageState extends State<NotePage> {
 
     print(widget.note.name);
 
-    Widget content = TextFormField(
+    Widget content = ZefyrField(
+      controller: _controller,
+      height: MediaQuery.of(context).size.height * 0.65,
+      focusNode: _focusNode,
+      physics: ClampingScrollPhysics(),
+      decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: 'Write here...',
+          hintStyle: TextStyle(fontStyle: FontStyle.italic)),
+    );
+
+    /*Widget content = TextFormField(
       controller: _controller,
       textInputAction: TextInputAction.newline,
       keyboardType: TextInputType.multiline,
@@ -236,7 +266,8 @@ class _NotePageState extends State<NotePage> {
           border: InputBorder.none,
           hintText: 'Write here...',
           hintStyle: TextStyle(fontStyle: FontStyle.italic)),
-    );
+    );*/
+
 
     Widget noteArea = new Container(
         child: ScrollConfiguration(behavior: ListScrollingWithoutIndicating(), child: ListView(
@@ -292,9 +323,11 @@ class _NotePageState extends State<NotePage> {
         ],
         backgroundColor: Styles.colorTheme,
       ),
-      body: noteArea,
+      body: ZefyrScaffold(
+        child: noteArea,
+      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => _save(),
         tooltip: 'Create note',
         child: Icon(Icons.add),
         backgroundColor: Styles.colorTheme,

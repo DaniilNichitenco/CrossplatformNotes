@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'package:notes_app/db/database_provider.dart';
+import 'package:zefyr/zefyr.dart';
 
 class Note {
   int id;
   String name;
-  String content;
+  NotusDocument content;
   bool isFavorite;
 
   Note({this.id, this.name, this.content, this.isFavorite});
@@ -11,7 +13,7 @@ class Note {
   Map<String, dynamic> toMap(){
     var map = <String, dynamic> {
       DatabaseProvider.COLUMN_NAME: name,
-      DatabaseProvider.COLUMN_CONTENT: content,
+      DatabaseProvider.COLUMN_CONTENT: jsonEncode(content.toJson()).toString(),
       DatabaseProvider.COLUMN_FAVORITE: isFavorite ? 1 : 0,
     };
 
@@ -25,7 +27,7 @@ class Note {
   Note.fromMap(Map<String, dynamic> map) {
     id = map[DatabaseProvider.COLUMN_ID];
     name = map[DatabaseProvider.COLUMN_NAME];
-    content = map[DatabaseProvider.COLUMN_CONTENT];
+    content = NotusDocument.fromJson(jsonDecode(map[DatabaseProvider.COLUMN_CONTENT]));
     isFavorite = map[DatabaseProvider.COLUMN_FAVORITE] == 1;
   }
 }
