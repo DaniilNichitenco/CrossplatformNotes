@@ -68,15 +68,12 @@ class _NotePageState extends State<NotePage> {
   @override
   void dispose() async {
 
-    print('saveDisp');
-    _save();
-
     _controller.dispose();
     super.dispose();
   }
 
 
-  void _save() {
+  Future<void> _save() {
 
     setState(() {
 
@@ -241,6 +238,11 @@ class _NotePageState extends State<NotePage> {
     }
   }
 
+  Future<bool> _onBackPressed() async {
+    await _save();
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -248,26 +250,13 @@ class _NotePageState extends State<NotePage> {
 
     Widget content = ZefyrField(
       controller: _controller,
-      height: MediaQuery.of(context).size.height * 0.65,
+      height: MediaQuery.of(context).size.height * 0.75,
       focusNode: _focusNode,
       physics: ClampingScrollPhysics(),
       decoration: InputDecoration(
           border: InputBorder.none,
-          hintText: 'Write here...',
           hintStyle: TextStyle(fontStyle: FontStyle.italic)),
     );
-
-    /*Widget content = TextFormField(
-      controller: _controller,
-      textInputAction: TextInputAction.newline,
-      keyboardType: TextInputType.multiline,
-      maxLines: null,
-      decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: 'Write here...',
-          hintStyle: TextStyle(fontStyle: FontStyle.italic)),
-    );*/
-
 
     Widget noteArea = new Container(
         child: ScrollConfiguration(behavior: ListScrollingWithoutIndicating(), child: ListView(
@@ -302,35 +291,38 @@ class _NotePageState extends State<NotePage> {
       elevation: 5,
     );
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(_title),
-        actions: <Widget>[
-          IconButton(
-            onPressed: () {
-              _addFavorite();
-            },
-            icon: _isFavorite ? Icon(Icons.star) : Icon(Icons.star_border),
-            tooltip: _isFavorite ? "Add to favorites" : "Remove frome favorits",
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.add_alert),
-            tooltip: "Show alerts",
-            iconSize: 22,
-          ),
-          popupMenu(),
-        ],
-        backgroundColor: Styles.colorTheme,
-      ),
-      body: ZefyrScaffold(
-        child: noteArea,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _save(),
-        tooltip: 'Create note',
-        child: Icon(Icons.add),
-        backgroundColor: Styles.colorTheme,
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(_title),
+          actions: <Widget>[
+            IconButton(
+              onPressed: () {
+                _addFavorite();
+              },
+              icon: _isFavorite ? Icon(Icons.star) : Icon(Icons.star_border),
+              tooltip: _isFavorite ? "Add to favorites" : "Remove frome favorits",
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.add_alert),
+              tooltip: "Show alerts",
+              iconSize: 22,
+            ),
+            popupMenu(),
+          ],
+          backgroundColor: Styles.colorTheme,
+        ),
+        body: ZefyrScaffold(
+          child: noteArea,
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => _save(),
+          tooltip: 'Create note',
+          child: Icon(Icons.add),
+          backgroundColor: Styles.colorTheme,
+        ),
       ),
     );
   }
