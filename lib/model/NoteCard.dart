@@ -110,7 +110,7 @@ class NoteCard extends StatelessWidget {
                 ],
               ),
               Container(
-                child: Text("${note.isFavorite} ${note.content}", maxLines: 7),
+                child: Text("${note.isFavorite} ${note.content.toPlainText()}", maxLines: 7),
                 margin: EdgeInsets.only(top: 5),
               )
             ],

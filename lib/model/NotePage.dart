@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -9,6 +11,7 @@ import 'package:notes_app/bloc/Note_bloc.dart';
 import 'package:notes_app/db/database_provider.dart';
 import 'package:notes_app/events/Update_note.dart';
 import 'package:notes_app/model/Note.dart';
+import 'package:zefyr/zefyr.dart';
 
 class NotePage extends StatefulWidget {
   NotePage({this.note, this.delete, this.index});
@@ -23,10 +26,12 @@ class NotePage extends StatefulWidget {
 
 class _NotePageState extends State<NotePage> {
 
-  TextEditingController _controller = TextEditingController();
+  //TextEditingController _controller = TextEditingController();
+  ZefyrController _controller;
+  FocusNode _focusNode;
 
   String _title;
-  String _content;
+  NotusDocument _content;
   bool _isFavorite = false;
 
   void initState() {
@@ -36,28 +41,39 @@ class _NotePageState extends State<NotePage> {
     _content = widget.note.content;
     _isFavorite = widget.note.isFavorite;
 
-    _controller = TextEditingController(text: _content);
+    _controller = ZefyrController(_content);
+    _focusNode = FocusNode();
 
     _controller.addListener(() {
+      _content = _controller.document;
+    });
+    /*_controller.addListener(() {
       _content = _controller.text;
 
       _save();
     }
-
-    );
+    );*/
     super.initState();
   }
 
   @override
-  void dispose() {
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    setState(() {
+      print('save');
+      _save();
+    });
+  }
 
-    _save();
+
+  @override
+  void dispose() async {
 
     _controller.dispose();
     super.dispose();
   }
 
-  void _save() {
+
+  Future<void> _save() {
 
     setState(() {
 
@@ -222,19 +238,23 @@ class _NotePageState extends State<NotePage> {
     }
   }
 
+  Future<bool> _onBackPressed() async {
+    await _save();
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
 
     print(widget.note.name);
 
-    Widget content = TextFormField(
+    Widget content = ZefyrField(
       controller: _controller,
-      textInputAction: TextInputAction.newline,
-      keyboardType: TextInputType.multiline,
-      maxLines: null,
+      height: MediaQuery.of(context).size.height * 0.75,
+      focusNode: _focusNode,
+      physics: ClampingScrollPhysics(),
       decoration: InputDecoration(
           border: InputBorder.none,
-          hintText: 'Write here...',
           hintStyle: TextStyle(fontStyle: FontStyle.italic)),
     );
 
@@ -271,33 +291,38 @@ class _NotePageState extends State<NotePage> {
       elevation: 5,
     );
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(_title),
-        actions: <Widget>[
-          IconButton(
-            onPressed: () {
-              _addFavorite();
-            },
-            icon: _isFavorite ? Icon(Icons.star) : Icon(Icons.star_border),
-            tooltip: _isFavorite ? "Add to favorites" : "Remove frome favorits",
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.add_alert),
-            tooltip: "Show alerts",
-            iconSize: 22,
-          ),
-          popupMenu(),
-        ],
-        backgroundColor: Styles.colorTheme,
-      ),
-      body: noteArea,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Create note',
-        child: Icon(Icons.add),
-        backgroundColor: Styles.colorTheme,
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(_title),
+          actions: <Widget>[
+            IconButton(
+              onPressed: () {
+                _addFavorite();
+              },
+              icon: _isFavorite ? Icon(Icons.star) : Icon(Icons.star_border),
+              tooltip: _isFavorite ? "Add to favorites" : "Remove frome favorits",
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.add_alert),
+              tooltip: "Show alerts",
+              iconSize: 22,
+            ),
+            popupMenu(),
+          ],
+          backgroundColor: Styles.colorTheme,
+        ),
+        body: ZefyrScaffold(
+          child: noteArea,
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => _save(),
+          tooltip: 'Create note',
+          child: Icon(Icons.add),
+          backgroundColor: Styles.colorTheme,
+        ),
       ),
     );
   }

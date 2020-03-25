@@ -53,7 +53,6 @@ class DatabaseProvider {
     var notes = await db.rawQuery(
         "SELECT * FROM $TABLE_NOTE ORDER BY $COLUMN_FAVORITE DESC, $COLUMN_ID ASC"
     );
-//db.rawQuery("SELECT * FROM $table ORDER BY column_1 ASC, column_2 DESC");
     List<Note> noteList = List<Note>();
 
     notes.forEach((currentNote) {
