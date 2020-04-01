@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -24,7 +22,7 @@ class NotePage extends StatefulWidget {
   _NotePageState createState() => _NotePageState();
 }
 
-class _NotePageState extends State<NotePage> {
+class _NotePageState extends State<NotePage> with WidgetsBindingObserver {
 
   //TextEditingController _controller = TextEditingController();
   ZefyrController _controller;
@@ -47,29 +45,23 @@ class _NotePageState extends State<NotePage> {
     _controller.addListener(() {
       _content = _controller.document;
     });
-    /*_controller.addListener(() {
-      _content = _controller.text;
 
-      _save();
-    }
-    );*/
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    setState(() {
-      print('save');
-      _save();
-    });
-  }
-
 
   @override
   void dispose() async {
 
     _controller.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if(state == AppLifecycleState.paused)
+      _save();
   }
 
 
@@ -91,7 +83,6 @@ class _NotePageState extends State<NotePage> {
       );
 
     });
-
   }
 
   void _addFavorite() {
