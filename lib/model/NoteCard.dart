@@ -10,6 +10,7 @@ class NoteCard extends StatelessWidget {
   NoteCard({this.note, this.delete, this.index});
 
   final cardColor = Colors.white;
+  final cardColorFavorite = Colors.amberAccent;
   // Color.fromARGB(255, 227, 242, 253); //Styles.cardColor;
   final Note note;
   final Function delete;
@@ -74,7 +75,7 @@ class NoteCard extends StatelessWidget {
           Navigator.push(
               context, SlideRightRoute(page: NotePage(note: note, delete: delete, index: index,)));
         },
-        color: cardColor,
+        color: note.isFavorite ? cardColorFavorite : cardColor,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
             side: BorderSide(color: Colors.black38) //Контур
@@ -110,7 +111,7 @@ class NoteCard extends StatelessWidget {
                 ],
               ),
               Container(
-                child: Text("${note.isFavorite} ${note.content.toPlainText()}", maxLines: 7),
+                child: Text("${note.content.toPlainText()}", maxLines: 7),
                 margin: EdgeInsets.only(top: 5),
               )
             ],

@@ -24,7 +24,6 @@ class NotePage extends StatefulWidget {
 
 class _NotePageState extends State<NotePage> with WidgetsBindingObserver {
 
-  //TextEditingController _controller = TextEditingController();
   ZefyrController _controller;
   FocusNode _focusNode;
 
@@ -65,7 +64,7 @@ class _NotePageState extends State<NotePage> with WidgetsBindingObserver {
   }
 
 
-  Future<void> _save() {
+  Future<void> _save() async {
 
     setState(() {
 
@@ -237,20 +236,24 @@ class _NotePageState extends State<NotePage> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
 
-    print(widget.note.name);
-
-    Widget content = ZefyrField(
-      controller: _controller,
-      height: MediaQuery.of(context).size.height * 0.75,
-      focusNode: _focusNode,
-      physics: ClampingScrollPhysics(),
-      decoration: InputDecoration(
-          border: InputBorder.none,
-          hintStyle: TextStyle(fontStyle: FontStyle.italic)),
+    Widget content = Container(
+      padding: EdgeInsets.only(left: 15.0, right: 15.0),
+      child: ScrollConfiguration(behavior: ListScrollingWithoutIndicating(), child: ZefyrField(
+        controller: _controller,
+        height: MediaQuery.of(context).size.height * 0.75,
+        focusNode: _focusNode,
+        physics: ClampingScrollPhysics(),
+        decoration: InputDecoration(
+            border: InputBorder.none,
+            hintStyle: TextStyle(fontStyle: FontStyle.italic)),
+      ),
+      ),
     );
 
-    Widget noteArea = new Container(
-        child: ScrollConfiguration(behavior: ListScrollingWithoutIndicating(), child: ListView(
+    /*Widget noteArea = new Container(
+      //margin: EdgeInsets.only(bottom: 50.0),
+        child: ListView(
+          physics: NeverScrollableScrollPhysics(),
           children: ListTile.divideTiles(context: context, tiles: [
             ListTile(
               title: Container(
@@ -267,7 +270,7 @@ class _NotePageState extends State<NotePage> with WidgetsBindingObserver {
               ),
             ),
           ]).toList(),
-        )));
+        ));*/
 
     Widget popupMenu() => PopupMenuButton<String>(
       onSelected: choiceAction,
@@ -306,13 +309,7 @@ class _NotePageState extends State<NotePage> with WidgetsBindingObserver {
           backgroundColor: Styles.colorTheme,
         ),
         body: ZefyrScaffold(
-          child: noteArea,
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => _save(),
-          tooltip: 'Create note',
-          child: Icon(Icons.add),
-          backgroundColor: Styles.colorTheme,
+          child: content,
         ),
       ),
     );

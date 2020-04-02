@@ -51,7 +51,7 @@ class DatabaseProvider {
     final db = await database;
 
     var notes = await db.rawQuery(
-        "SELECT * FROM $TABLE_NOTE ORDER BY $COLUMN_FAVORITE DESC, $COLUMN_ID ASC"
+        "SELECT * FROM $TABLE_NOTE ORDER BY $COLUMN_FAVORITE DESC, $COLUMN_ID DESC"
     );
     List<Note> noteList = List<Note>();
 
