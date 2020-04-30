@@ -8,6 +8,7 @@ import 'package:notes_app/UI_Elements/popup_menu.dart';
 import 'package:notes_app/bloc/Note_bloc.dart';
 import 'package:notes_app/db/database_provider.dart';
 import 'package:notes_app/events/Update_note.dart';
+import 'package:notes_app/image_delegate/imageDelegate.dart';
 import 'package:notes_app/model/Note.dart';
 import 'package:zefyr/zefyr.dart';
 
@@ -112,7 +113,7 @@ class _NotePageState extends State<NotePage> with WidgetsBindingObserver {
     );
 
     AlertDialog alert = AlertDialog(
-      title: Text('Delete ${_title}?'),
+      title: Text('Delete $_title?'),
       content: Text('Are you sure you want to delete this note?'),
       actions: <Widget>[
         cancelButton,
@@ -239,6 +240,7 @@ class _NotePageState extends State<NotePage> with WidgetsBindingObserver {
     Widget content = Container(
       padding: EdgeInsets.only(left: 15.0, right: 15.0),
       child: ScrollConfiguration(behavior: ListScrollingWithoutIndicating(), child: ZefyrField(
+        imageDelegate: AppZefyrImageDelegate(),
         controller: _controller,
         height: MediaQuery.of(context).size.height * 0.75,
         focusNode: _focusNode,
