@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:path/path.dart' as path;
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:zefyr/zefyr.dart';
@@ -9,6 +9,12 @@ class AppZefyrImageDelegate implements ZefyrImageDelegate<ImageSource> {
   @override
   Future<String> pickImage(ImageSource source) async{
     final file = await ImagePicker.pickImage(source: source);
+    String newPath = '/storage/emulated/0/Android/data/com.dannichitenco.notes_app/files/Pictures/${path.basename(file.path)}';
+    if(file.path != newPath)
+      {
+        final newImage = await file.copy(newPath);
+        return newImage.uri.toString();
+      }
     if(file == null)
       return null;
     return file.uri.toString();
